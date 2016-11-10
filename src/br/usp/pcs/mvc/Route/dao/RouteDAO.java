@@ -5,12 +5,11 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.ArrayList;
 
-import br.usp.pcs.mvc.Cidade.dao.CityDAO;
 import br.usp.pcs.mvc.Cidade.data.City;
 import br.usp.pcs.mvc.Route.data.Route;
+import br.usp.pcs.mvc.Transport.data.Transport;
 
 public class RouteDAO {
 	private static final RouteDAO instance = new RouteDAO();
@@ -47,58 +46,51 @@ public class RouteDAO {
 			route.setId(routeResult.getInt("ID"));
 			route.setPrice(routeResult.getDouble("Price"));
 			
-			ResultSet resultSet = statement.executeQuery("SELECT * FROM City INNER JOIN RouteCity WHERE RouteCity.RouteID = " + routeId + " & City.ID = RouteCity.CityID");
+			// Getting Route Cities
+			ResultSet routeCitiesResult = statement.executeQuery("SELECT C.* FROM City C INNER JOIN RouteCity RC WHERE RC.RouteID = " + routeId + " AND C.ID = RC.CityID");
 			
-			resultSet.next();
-			city.setName(resultSet.getString("Name"));
-			city.setDescription(resultSet.getString("Description"));
-			city.setProvince(resultSet.getString("Province"));
-			city.setCountry(resultSet.getString("Country"));
-			city.setLatitude(resultSet.getDouble("Latitude"));
-			city.setLongitude(resultSet.getDouble("Longitude"));
-			return city;
+			ArrayList<City> routeCitiesArray = new ArrayList<>();
 			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return new City();
-		}
-
-	}
-
-	public List<City> getAllCities() {
-
-		LinkedList<City> cidades = new LinkedList<>();
-
-		try {
-
-			Connection connection = createConnection();
-			Statement statement = connection.createStatement();
-
-			ResultSet resultSet = statement.executeQuery("SELECT * FROM City ORDER BY name ASC");
-
-			while (resultSet.next()) {
-				City cidade = new City();
-				cidade.setId(resultSet.getInt("ID"));
-				cidade.setName(resultSet.getString("Name"));
-				cidade.setDescription(resultSet.getString("Description"));
-				cidade.setProvince(resultSet.getString("Province"));
-				cidade.setCountry(resultSet.getString("Country"));
-				cidade.setLatitude(resultSet.getDouble("Latitude"));
-				cidade.setLongitude(resultSet.getDouble("Longitude"));
-
-				cidades.add(cidade);
+			while (routeCitiesResult.next()) {
+				City city = new City();
+				city.setId(routeCitiesResult.getInt("ID"));
+				city.setName(routeCitiesResult.getString("Name"));
+				city.setDescription(routeCitiesResult.getString("Description"));
+				city.setProvince(routeCitiesResult.getString("Province"));
+				city.setCountry(routeCitiesResult.getString("Country"));
+				city.setLatitude(routeCitiesResult.getDouble("Latitude"));
+				city.setLongitude(routeCitiesResult.getDouble("Longitude"));
+				routeCitiesArray.add(city);
 			}
+			
+			route.setCities(routeCitiesArray);
 
-			connection.close();
-
+			// Getting Route Transports
+			ResultSet routeTransportsResult = statement.executeQuery("SELECT T.* FROM Transport T INNER JOIN RouteTransport RT WHERE RT.RouteID = " + routeId + " AND T.ID = RT.TransportID");
+			
+			ArrayList<Transport> routeTransportsArray = new ArrayList<>();
+			
+			while (routeTransportsResult.next()) {
+				Transport transport = new Transport();
+				transport.setId(routeTransportsResult.getInt("ID"));
+				transport.setOriginCityID(routeTransportsResult.getInt("OriginID"));
+				transport.setDestinationCityID(routeTransportsResult.getInt("DestinationID"));
+				transport.setCompany(routeTransportsResult.getString("Company"));
+				transport.setPrice(routeTransportsResult.getDouble("Price"));
+				transport.setType(routeTransportsResult.getString("Type"));
+				routeTransportsArray.add(transport);
+			}
+			
+			route.setTransports(routeTransportsArray);
+			
+			return route;
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return new Route();
 		}
 
-		return cidades;
 	}
-
 
 }
