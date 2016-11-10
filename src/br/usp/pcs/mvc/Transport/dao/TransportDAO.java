@@ -30,20 +30,20 @@ public class TransportDAO {
 		return instance;
 	}
 	
-	public Transport getTransportd(int City1, int City2) {
+	public Transport getTransport(int originID, int destinationID) {
 		
 		try {
 
 			Connection connection = createConnection();
 			Statement statement = connection.createStatement();
 
-			ResultSet resultSet = statement.executeQuery("SELECT * FROM TRANSPORT WHERE OriginCityId = " + City1 + "AND DestinationCityId = " + City2 );
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM TRANSPORT WHERE OriginID = " + originID + " AND DestinationID = " + destinationID );
 			Transport transport = new Transport();
 			transport.setId(resultSet.getInt("ID"));
 			transport.setType(resultSet.getString("Type"));
 			transport.setCompany(resultSet.getString("Company"));
-			transport.setDestinationCityID(resultSet.getInt("DestinationCityId"));
-			transport.setOriginCityID(resultSet.getInt("OriginCityId"));
+			transport.setDestinationCityID(resultSet.getInt("DestinationID"));
+			transport.setOriginCityID(resultSet.getInt("OriginID"));
 			transport.setPrice(resultSet.getDouble("Price"));
 			resultSet.next();
 			return transport;
