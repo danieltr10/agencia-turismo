@@ -35,7 +35,7 @@ public class HotelDAO {
 			Connection connection = createConnection();
 			Statement statement = connection.createStatement();
 
-			ResultSet resultSet = statement.executeQuery("SELECT H.* FROM HOTEL H, CITY IDCITY WHERE H.CityID = " + CityID);
+			ResultSet resultSet = statement.executeQuery("SELECT H.* FROM Hotel H WHERE H.CityID = " + CityID);
 			Hotel hotel = new Hotel();
 			hotel.setId(resultSet.getInt("ID"));
 			hotel.setName(resultSet.getString("Name"));
