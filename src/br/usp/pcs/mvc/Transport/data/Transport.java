@@ -7,8 +7,8 @@ public class Transport {
 	private int id;
 	private String type;
 	private double price;
-	private City originCity;
-	private City destinationCity;
+	private int originCityID;
+	private int destinationCityID;
 	private String company;
 	
 	public int getId() {
@@ -25,20 +25,6 @@ public class Transport {
 		this.type = type;
 	}
 	
-	public City getOriginCity() {
-		return originCity;
-	}
-	public void setOriginCity(City originCity) {
-		this.originCity = originCity;
-	}
-	
-	public City getDestinationCity() {
-		return destinationCity;
-	}
-	public void setDestinationCity(City destinationCity) {
-		this.destinationCity = destinationCity;
-	}
-	
 	public String getCompany() {
 		return company;
 	}
@@ -53,6 +39,21 @@ public class Transport {
 	
 	public void setPrice(double price) {
 		this.price = price;
+	}
+	
+	public int getDestinationCityID() {
+		return destinationCityID;
+	}
+	
+	public void setDestinationCityID(int destinationCityID) {
+		this.destinationCityID = destinationCityID;
+	}
+	public int getOriginCityID() {
+		return originCityID;
+	}
+	
+	public void setOriginCityID(int originCityID) {
+		this.originCityID = originCityID;
 	}
 	
 }
