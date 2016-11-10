@@ -7,6 +7,7 @@ import br.usp.pcs.mvc.Transport.data.Transport;
 
 public class Route {
 	
+	private int id;
 	private ArrayList<City> cities; 
 	private ArrayList<Transport> transports;
 	private double price;
@@ -30,6 +31,13 @@ public class Route {
 	}
 	public void setPrice(double price) {
 		this.price = price;
+	}
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 
