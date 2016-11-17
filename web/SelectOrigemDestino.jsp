@@ -10,21 +10,26 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+
 </head>
 <body>
+
+<form method="post" action="<%= request.getContextPath() %>/CityController">
+
+<div class="container">
     <h1>Criar Roteiro</h1>
     <h2>Selecione a origem e o destino</h2>
 
-<div class="container">
+
     <label for="sel1">Origem</label>
-    <select class="form-control" id="sel1">
+    <select class="form-control" id="sel1" name="origem">
         <%
             List<City> cidadesOrigem = (List) request.getAttribute("cidades");
             int i;
 
             for (i = 0; i < cidadesOrigem.size(); i++) {
         %>
-        <option>
+        <option value="<%=cidadesOrigem.get(i).getId()%>">
             <%= cidadesOrigem.get(i).getName() %>
         </option>
         <%
@@ -34,13 +39,13 @@
     <br>
 
     <label for="sel1">Destino</label>
-    <select class="form-control" id="sel2">
+    <select class="form-control" id="sel2" name="destino">
         <%
             List<City> cidadesDestino = (List) request.getAttribute("cidades");
 
             for (i = 0; i < cidadesDestino.size(); i++) {
         %>
-        <option>
+        <option value="<%=cidadesDestino.get(i).getId()%>">
             <%= cidadesDestino.get(i).getName() %>
         </option>
         <%
@@ -48,9 +53,13 @@
         %>
     </select>
     <br>
+   <input type="hidden" name="page" value="ProcessaCidades"/>
+    <button type="submit" class="btn btn-primary btn-block" href="<%= request.getContextPath() %>/CityController">Listar Cidades</button>
 
-    <button type="button" class="btn btn-primary btn-block">Listar Cidades</button>
 </div>
 
+</form>
+
 </body>
+
 </html>

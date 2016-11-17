@@ -1,6 +1,8 @@
 package br.usp.pcs.mvc.Cidade.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.usp.pcs.mvc.Cidade.dao.CityDAO;
+import br.usp.pcs.mvc.Cidade.data.City;
 
 /**
  * Servlet implementation class CidadeController
@@ -43,17 +46,29 @@ public class CityController extends HttpServlet {
 			RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/SelectOrigemDestino.jsp");
 			requestDispatcher.forward(request, response);
 			
-		} else if (pageRequested.equals("details")) {
+		} else if (pageRequested.equals("listaCidades")) {
 			
 			int id = Integer.valueOf(request.getParameter("id"));
 
 			CityDAO dao = CityDAO.getInstance();
 			request.setAttribute("cidade", dao.getCityById(id));
 			
-			RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/DetalhesCidade.jsp");
+			RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/ListaDeCidade.jsp");
 			requestDispatcher.forward(request, response);
 			
 			
+		} else if (pageRequested.equals("ProcessaCidades")) {
+			CityDAO dao = CityDAO.getInstance();
+			int idOrigem = Integer.parseInt(request.getParameter("origem"));
+			int idDestino = Integer.parseInt(request.getParameter("destino"));
+			City origem = dao.getCityById(idOrigem);
+			City destino = dao.getCityById(idDestino);
+
+			request.setAttribute("cidadeOrigem", origem);
+			request.setAttribute("cidadeDestino", destino);
+
+			RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/ListaDeCidades.jsp");
+			requestDispatcher.forward(request, response);
 		}
 	}
 
