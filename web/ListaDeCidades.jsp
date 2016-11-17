@@ -50,7 +50,7 @@ function checkBoxValidation() {
 	
     	 <li class="list-group-item">
     	 	<div class="input-group">
-    	 	<input type="checkbox" name="city" value="<%= cidades.get(i).getId() %>">
+    	 	<input type="checkbox" name="city" value="<%= cidades.get(i)g .getId() %>">
             	<%= cidades.get(i).getName() %>
 
             </div>
@@ -61,7 +61,7 @@ function checkBoxValidation() {
 %>
 
     	 </ul>
-                <br />
+                <br
                 <button class="btn btn-primary col-xs-12" onclick="checkBoxValidation()">Selecionar Cidades</button>
             </div>
           
