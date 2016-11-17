@@ -35,26 +35,26 @@ public class RouteController extends HttpServlet {
 
         pageRequested = (String) request.getParameter("page");
 
-        if (pageRequested == null) {
-
-            CityDAO dao = CityDAO.getInstance();
-            request.setAttribute("cidades", dao.getAllCities());
-
-            RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/ListaDeCidades.jsp");
-            requestDispatcher.forward(request, response);
-
-        } else if (pageRequested.equals("details")) {
-
-            int id = Integer.valueOf(request.getParameter("id"));
-
-            CityDAO dao = CityDAO.getInstance();
-            request.setAttribute("cidade", dao.getCityById(id));
-
-            RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/DetalhesCidade.jsp");
-            requestDispatcher.forward(request, response);
-
-
-        }
+//        if (pageRequested == null) {
+//
+//            CityDAO dao = CityDAO.getInstance();
+//            request.setAttribute("cidades", dao.getAllCities());
+//
+//            RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/ListaDeCidades.jsp");
+//            requestDispatcher.forward(request, response);
+//
+//        } else if (pageRequested.equals("details")) {
+//
+//            int id = Integer.valueOf(request.getParameter("id"));
+//
+//            CityDAO dao = CityDAO.getInstance();
+//            request.setAttribute("cidade", dao.getCityById(id));
+//
+//            RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/DetalhesCidade.jsp");
+//            requestDispatcher.forward(request, response);
+//
+//
+//        }
     }
 
     /**

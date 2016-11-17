@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component inheritJdk="true">
+	<exclude-output/>
+	<contentEntry url="file://$MODULE_DIR$"/>
+	<levels>
+		<level name="Java EE 6-Java EE 6" value="project"/>
+	</levels>
+</component>

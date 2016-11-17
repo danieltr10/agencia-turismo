@@ -40,7 +40,7 @@ public class CityController extends HttpServlet {
 			CityDAO dao = CityDAO.getInstance();
 			request.setAttribute("cidades", dao.getAllCities());
 			
-			RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/ListaDeCidades.jsp");
+			RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/SelectOrigemDestino.jsp");
 			requestDispatcher.forward(request, response);
 			
 		} else if (pageRequested.equals("details")) {
