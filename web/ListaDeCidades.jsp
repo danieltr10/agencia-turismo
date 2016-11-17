@@ -11,7 +11,7 @@
 <body>
 <table width="600px" border="1">
 <tr>
-	<td> <b>ID</b> </td> <td> <b>Nome</b> </td>
+	<td> <span style="font-weight: bold;">ID</span> </td> <td> <span style="font-weight: bold;">Nome</span> </td>
 </tr>
 <%
 	List<City> cidades = (List) request.getAttribute("cidades");
@@ -26,6 +26,7 @@
 <%
 	}
 %>
+
 </table>
 </body>
 </html>
