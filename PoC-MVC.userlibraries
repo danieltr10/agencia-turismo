@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eclipse-userlibraries>
+  <library name="Java EE 6-Java EE 6">
+    <archive path="C:/Projetos/agencia-turismo/lib/javax.annotation.jar" />
+    <archive path="C:/Projetos/agencia-turismo/lib/javax.persistence.jar" />
+    <archive path="C:/Projetos/agencia-turismo/lib/javax.jms.jar" />
+    <archive path="C:/Projetos/agencia-turismo/lib/javax.ejb.jar" />
+    <archive path="C:/Projetos/agencia-turismo/lib/javax.transaction.jar" />
+    <archive path="C:/Projetos/agencia-turismo/lib/javax.servlet.jar" />
+    <archive path="C:/Projetos/agencia-turismo/lib/javax.servlet.jsp.jar" />
+    <archive path="C:/Projetos/agencia-turismo/lib/javax.resource.jar" />
+    <archive path="C:/Projetos/agencia-turismo/lib/javax.servlet.jsp.jstl.jar" />
+  </library>
+</eclipse-userlibraries>
+
