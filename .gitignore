@@ -4,6 +4,7 @@
 *.ap_
 
 # .idea folder
+.idea/
 */**/.idea/
 
 # Files for the Dalvik VM
