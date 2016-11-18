@@ -19,6 +19,7 @@
 
 <script type="text/javascript">
 function checkBoxValidation() {
+
 	boolean anyChecked = false;
 	for(var i=0; i < document.form1.city.length; i++) {
 		if(document.form1.city[i].checked) {
@@ -50,7 +51,7 @@ function checkBoxValidation() {
 	
     	 <li class="list-group-item">
     	 	<div class="input-group">
-    	 	<input type="checkbox" name="city" value="<%= cidades.get(i)g .getId() %>">
+    	 	<input type="checkbox" name="city" value="<%= cidades.get(i).getId() %>">
             	<%= cidades.get(i).getName() %>
 
             </div>
