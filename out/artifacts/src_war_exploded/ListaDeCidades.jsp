@@ -33,20 +33,29 @@ function checkBoxValidation() {
 </script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Lista de Cidades</title>
+<title>Lista de Cidades Turísticas</title>
 </head>
 <body>
+
+<%
+    List<City> cidades = (List) request.getAttribute("listaCidades");
+    City originCity = (City) request.getAttribute("cidadeOrigem");
+    City destinyCity = (City) request.getAttribute("cidadeDestino");
+%>
+
 <form name="form1" onsubmit="checkBoxValidation()">
         <div class="col-xs-6">
-            <h3 class="text-center">Lista de Cidades</h3>
+            <h3 class="text-center">Selecione as cidades que deseja visitar</h3>
             <div class="well" style="max-height: 300px;overflow: auto;">
             	<ul id="check-list-box" class="list-group checked-list-box">
+                    <li class="list-group-item">
+                        <div class="input-group">
+                            Cidade Origem: <%= originCity.getName() %>
+
+                        </div>
+                    </li>
 <%
-	List<City> cidades = (List) request.getAttribute("cidades");
-
-
-	int i;
-	for (i = 0; i < cidades.size(); i++) {
+	for (int i = 0; i < cidades.size(); i++) {
 %>
 	
     	 <li class="list-group-item">
@@ -56,13 +65,18 @@ function checkBoxValidation() {
 
             </div>
          </li>
-	<%-- <td> <a href="<%= request.getContextPath() %>/?page=details&id=<%= cidades.get(i).getId() %>"> <%= cidades.get(i).getName() %> </a> </td> --%>
 <%
 	}
 %>
 
+                    <li class="list-group-item">
+                        <div class="input-group">
+                            Cidade Destino: <%= destinyCity.getName() %>
+
+                        </div>
+                    </li>
     	 </ul>
-                <br
+                <br>
                 <button class="btn btn-primary col-xs-12" onclick="checkBoxValidation()">Selecionar Cidades</button>
             </div>
           

@@ -64,6 +64,7 @@ public class CityController extends HttpServlet {
 			City origem = dao.getCityById(idOrigem);
 			City destino = dao.getCityById(idDestino);
 
+            request.setAttribute("listaCidades", getListWithoutOriginAndDestiny(idOrigem, idDestino, dao.getAllCities()));
 			request.setAttribute("cidadeOrigem", origem);
 			request.setAttribute("cidadeDestino", destino);
 
@@ -79,5 +80,17 @@ public class CityController extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
+
+	private List<City> getListWithoutOriginAndDestiny(int idOrigin, int idDestiny, List<City> citiesList) {
+        List<City> visitingCities = new ArrayList<>(citiesList);
+
+        for (City city: citiesList) {
+            if (city.getId() == idOrigin || city.getId() == idDestiny) {
+                visitingCities.remove(city);
+            }
+        }
+
+        return visitingCities;
+    }
 
 }
