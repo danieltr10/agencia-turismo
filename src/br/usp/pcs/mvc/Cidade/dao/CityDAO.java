@@ -5,13 +5,15 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
-
 import br.usp.pcs.mvc.Cidade.data.City;
-import br.usp.pcs.mvc.utils.CityMapper;;
+import br.usp.pcs.mvc.utils.CityMapper;
 
-public class CityDAO {
+
+public class CityDAO{
 
 	private static final CityDAO instance = new CityDAO();
 
@@ -157,6 +159,7 @@ public class CityDAO {
 		
 		return ordenarCidades(cidades, cidadeOrigem);
 	}
+
 	private List<City> ordenarCidades(List<City> cidades, City cidadeOrigem){
 
 		Collections.sort(cidades, Comparator.comparing(City::getDistanciaOrigem));
@@ -164,7 +167,7 @@ public class CityDAO {
 		return cidades;
 		
 	}
-
+	
 	public List<City> getAllCities() {
 
 		LinkedList<City> cidades = new LinkedList<>();
@@ -180,6 +183,7 @@ public class CityDAO {
 
 				CityMapper cityMapper = new CityMapper();
 				cidades.add(cityMapper.mapResultSetToCity(resultSet));
+
 			}
 
 			connection.close();
@@ -191,6 +195,9 @@ public class CityDAO {
 
 		return cidades;
 	}
+
+	
+	 
 
 }
 
