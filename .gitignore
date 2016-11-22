@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Built application files
 .DS_STORE
 *.apk
@@ -40,6 +39,4 @@ captures/
 # Workspace and libraries
 */**/.idea/workspace.xml
 */**/.idea/libraries
-=======
 *.classpath
->>>>>>> myversion
