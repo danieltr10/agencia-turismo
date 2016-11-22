@@ -37,7 +37,7 @@ public class CityController extends HttpServlet {
 		String pageRequested;
 		
 		pageRequested = (String) request.getParameter("page");
-		
+
 		if (pageRequested == null) {
 			
 			CityDAO dao = CityDAO.getInstance();
@@ -70,6 +70,13 @@ public class CityController extends HttpServlet {
 
 			RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/ListaDeCidades.jsp");
 			requestDispatcher.forward(request, response);
+
+		} else if (pageRequested.equals("HoteisETransportes")) {
+
+			String[] cities = request.getParameterValues("city");
+			RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/HoteisETransportes.jsp");
+			requestDispatcher.forward(request, response);
+
 		}
 	}
 

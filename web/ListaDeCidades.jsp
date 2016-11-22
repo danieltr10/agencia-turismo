@@ -1,5 +1,6 @@
 <%@page import="br.usp.pcs.mvc.Cidade.data.City"%>
 <%@page import="java.util.List"%>
+<%@ page import="java.util.ArrayList" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -20,7 +21,7 @@
 <script type="text/javascript">
 function checkBoxValidation() {
 
-	boolean anyChecked = false;
+	var anyChecked = false;
 	for(var i=0; i < document.form1.city.length; i++) {
 		if(document.form1.city[i].checked) {
 			anyChecked = true;
@@ -42,14 +43,14 @@ function checkBoxValidation() {
     City originCity = (City) request.getAttribute("cidadeOrigem");
     City destinyCity = (City) request.getAttribute("cidadeDestino");
 %>
-
-<form name="form1" onsubmit="checkBoxValidation()">
+<form name="form1"  method="post" action="<%= request.getContextPath() %>/CityController" onsubmit="checkBoxValidation()">
         <div class="col-xs-6">
             <h3 class="text-center">Selecione as cidades que deseja visitar</h3>
             <div class="well" style="max-height: 300px;overflow: auto;">
             	<ul id="check-list-box" class="list-group checked-list-box">
                     <li class="list-group-item">
                         <div class="input-group">
+                            <input type="hidden" name="city" value="<%= originCity.getId() %>">
                             Cidade Origem: <%= originCity.getName() %>
 
                         </div>
@@ -71,25 +72,19 @@ function checkBoxValidation() {
 
                     <li class="list-group-item">
                         <div class="input-group">
+                            <input type="hidden" name="city" value="<%= destinyCity.getId() %>">
                             Cidade Destino: <%= destinyCity.getName() %>
 
                         </div>
                     </li>
     	 </ul>
                 <br>
-                <button class="btn btn-primary col-xs-12" onclick="checkBoxValidation()">Selecionar Cidades</button>
+                <input type="hidden" name="page" value="HoteisETransportes"/>
+                <button class="btn btn-primary col-xs-12">Selecionar Cidades</button>
             </div>
           
         </div>
         </form>
-        
-        <%
-String cities[]= request.getParameterValues("city");
-if(cities != null) {
-	for (int j = 0; j < cities.length; j++) {
-%>
-	<h4><%= cities[j]%></h4>
-<%}
-}%>
+
 </body>
 </html>

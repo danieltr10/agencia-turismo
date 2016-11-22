@@ -54,7 +54,7 @@
     </select>
     <br>
    <input type="hidden" name="page" value="ProcessaCidades"/>
-    <button type="submit" class="btn btn-primary btn-block" href="<%= request.getContextPath() %>/CityController">Listar Cidades</button>
+    <button type="submit" class="btn btn-primary btn-block" >Listar Cidades</button>
 
 </div>
 
