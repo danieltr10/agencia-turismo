@@ -8,7 +8,8 @@ import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
-import br.usp.pcs.mvc.Cidade.data.City;;
+import br.usp.pcs.mvc.Cidade.data.City;
+import br.usp.pcs.mvc.utils.CityMapper;;
 
 public class CityDAO {
 
@@ -72,16 +73,9 @@ public class CityDAO {
 			ResultSet resultSet = statement.executeQuery("SELECT * FROM City ORDER BY name ASC");
 
 			while (resultSet.next()) {
-				City cidade = new City();
-				cidade.setId(resultSet.getInt("ID"));
-				cidade.setName(resultSet.getString("Name"));
-				cidade.setDescription(resultSet.getString("Description"));
-				cidade.setProvince(resultSet.getString("Province"));
-				cidade.setCountry(resultSet.getString("Country"));
-				cidade.setLatitude(resultSet.getDouble("Latitude"));
-				cidade.setLongitude(resultSet.getDouble("Longitude"));
 
-				cidades.add(cidade);
+				CityMapper cityMapper = new CityMapper();
+				cidades.add(cityMapper.mapResultSetToCity(resultSet));
 			}
 
 			connection.close();

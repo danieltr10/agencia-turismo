@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import br.usp.pcs.mvc.Cidade.data.City;
 import br.usp.pcs.mvc.Route.data.Route;
 import br.usp.pcs.mvc.Transport.data.Transport;
+import br.usp.pcs.mvc.utils.CityMapper;
 
 public class RouteDAO {
 	private static final RouteDAO instance = new RouteDAO();
@@ -52,15 +53,8 @@ public class RouteDAO {
 			ArrayList<City> routeCitiesArray = new ArrayList<>();
 			
 			while (routeCitiesResult.next()) {
-				City city = new City();
-				city.setId(routeCitiesResult.getInt("ID"));
-				city.setName(routeCitiesResult.getString("Name"));
-				city.setDescription(routeCitiesResult.getString("Description"));
-				city.setProvince(routeCitiesResult.getString("Province"));
-				city.setCountry(routeCitiesResult.getString("Country"));
-				city.setLatitude(routeCitiesResult.getDouble("Latitude"));
-				city.setLongitude(routeCitiesResult.getDouble("Longitude"));
-				routeCitiesArray.add(city);
+				CityMapper cityMapper = new CityMapper();
+				routeCitiesArray.add(cityMapper.mapResultSetToCity(routeCitiesResult));
 			}
 			
 			route.setCities(routeCitiesArray);
