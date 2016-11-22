@@ -7,6 +7,7 @@ public class City {
 	private String descricao;
 	private String province;
 	private String country;
+	private double distanciaOrigem;
 	private double latitude;
 	private double longitude;
 	
@@ -63,7 +64,13 @@ public class City {
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
-	
-	
-	
+
+
+	public double getDistanciaOrigem() {
+		return distanciaOrigem;
+	}
+
+	public void setDistanciaOrigem(double distanciaOrigem) {
+		this.distanciaOrigem = distanciaOrigem;
+	}
 }

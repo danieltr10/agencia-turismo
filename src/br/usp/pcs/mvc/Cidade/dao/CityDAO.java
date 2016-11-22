@@ -69,92 +69,73 @@ public class CityDAO{
 				try {
 					Connection connection = createConnection();
 					Statement statement = connection.createStatement();
-					ResultSet resultSet = statement.executeQuery("SELECT * FROM City C WHERE (C.Latitude BETWEEN "+cidadeDestino+ " AND " +cidadeOrigem+") AND (C.Longitude BETWEEN" +cidadeDestino+ " AND " +cidadeOrigem+ ")");
-					while (resultSet.next()) {
-						City cidade = new City();
-						cidade.setId(resultSet.getInt("ID"));
-						cidade.setName(resultSet.getString("Name"));
-						cidade.setDescription(resultSet.getString("Description"));
-						cidade.setProvince(resultSet.getString("Province"));
-						cidade.setCountry(resultSet.getString("Country"));
-						cidade.setLatitude(resultSet.getDouble("Latitude"));
-						cidade.setLongitude(resultSet.getDouble("Longitude"));
-						cidades.add(cidade);
-					}
-					connection.close();
+					ResultSet resultSet = statement.executeQuery("SELECT * FROM City C WHERE (C.Latitude BETWEEN " + cidadeDestino.getLatitude() + " AND " + cidadeOrigem.getLatitude() + ") AND (C.Longitude BETWEEN" + cidadeDestino.getLongitude() + " AND " + cidadeOrigem.getLongitude() + ")");
+                    while (resultSet.next()) {
+                        if (resultSet.getInt("ID") != cidadeOrigem.getId() && resultSet.getInt("ID") != cidadeDestino.getId()) {
+                            CityMapper cityMapper = new CityMapper();
+                            cidades.add(cityMapper.mapResultSetToCity(resultSet));
+                        }
+                    }
+                    connection.close();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
-			else{
+			else {
 				try {
 					Connection connection = createConnection();
 					Statement statement = connection.createStatement();
-					ResultSet resultSet = statement.executeQuery("SELECT * FROM City C WHERE (C.Latitude BETWEEN "+cidadeDestino+ " AND " +cidadeOrigem+") AND (C.Longitude BETWEEN" +cidadeOrigem+ " AND " +cidadeDestino+ ")");
-					while (resultSet.next()) {
-						City cidade = new City();
-						cidade.setId(resultSet.getInt("ID"));
-						cidade.setName(resultSet.getString("Name"));
-						cidade.setDescription(resultSet.getString("Description"));
-						cidade.setProvince(resultSet.getString("Province"));
-						cidade.setCountry(resultSet.getString("Country"));
-						cidade.setLatitude(resultSet.getDouble("Latitude"));
-						cidade.setLongitude(resultSet.getDouble("Longitude"));
-						cidades.add(cidade);
-					}
-					connection.close();
+					ResultSet resultSet = statement.executeQuery("SELECT * FROM City C WHERE (C.Latitude BETWEEN " + cidadeDestino.getLatitude() + " AND " + cidadeOrigem.getLatitude() + ") AND (C.Longitude BETWEEN" + cidadeOrigem.getLongitude() + " AND " + cidadeDestino.getLongitude() + ")");
+                    while (resultSet.next()) {
+                        if (resultSet.getInt("ID") != cidadeOrigem.getId() && resultSet.getInt("ID") != cidadeDestino.getId()) {
+                            CityMapper cityMapper = new CityMapper();
+                            cidades.add(cityMapper.mapResultSetToCity(resultSet));
+                        }
+                    }
+                    connection.close();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 		}
-		else{
+		else {
 			if(cidadeOrigem.getLongitude() > cidadeDestino.getLongitude()){
 				try {
 					Connection connection = createConnection();
 					Statement statement = connection.createStatement();
-					ResultSet resultSet = statement.executeQuery("SELECT * FROM City C WHERE (C.Latitude BETWEEN "+cidadeOrigem+ " AND " +cidadeDestino+") AND (C.Longitude BETWEEN" +cidadeDestino+ " AND " +cidadeOrigem+ ")");
-					while (resultSet.next()) {
-						City cidade = new City();
-						cidade.setId(resultSet.getInt("ID"));
-						cidade.setName(resultSet.getString("Name"));
-						cidade.setDescription(resultSet.getString("Description"));
-						cidade.setProvince(resultSet.getString("Province"));
-						cidade.setCountry(resultSet.getString("Country"));
-						cidade.setLatitude(resultSet.getDouble("Latitude"));
-						cidade.setLongitude(resultSet.getDouble("Longitude"));
-						cidades.add(cidade);
-					}
-					connection.close();
+					ResultSet resultSet = statement.executeQuery("SELECT * FROM City C WHERE (C.Latitude BETWEEN " + cidadeOrigem.getLatitude() + " AND " + cidadeDestino.getLatitude() + ") AND (C.Longitude BETWEEN" + cidadeDestino.getLongitude() + " AND " + cidadeOrigem.getLongitude() + ")");
+                    while (resultSet.next()) {
+                        if (resultSet.getInt("ID") != cidadeOrigem.getId() && resultSet.getInt("ID") != cidadeDestino.getId()) {
+                            CityMapper cityMapper = new CityMapper();
+                            cidades.add(cityMapper.mapResultSetToCity(resultSet));
+                        }
+                    }
+                    connection.close();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
-			else{
+			else {
 				try {
 					Connection connection = createConnection();
 					Statement statement = connection.createStatement();
-					ResultSet resultSet = statement.executeQuery("SELECT * FROM City C WHERE (C.Latitude BETWEEN "+cidadeOrigem+ " AND " +cidadeDestino+") AND (C.Longitude BETWEEN" +cidadeOrigem+ " AND " +cidadeDestino+ ")");
-					while (resultSet.next()) {
-						City cidade = new City();
-						cidade.setId(resultSet.getInt("ID"));
-						cidade.setName(resultSet.getString("Name"));
-						cidade.setDescription(resultSet.getString("Description"));
-						cidade.setProvince(resultSet.getString("Province"));
-						cidade.setCountry(resultSet.getString("Country"));
-						cidade.setLatitude(resultSet.getDouble("Latitude"));
-						cidade.setLongitude(resultSet.getDouble("Longitude"));
-						cidades.add(cidade);
-					}
-					connection.close();
+					ResultSet resultSet = statement.executeQuery("SELECT * FROM City C WHERE (C.Latitude BETWEEN " + cidadeOrigem.getLatitude() + " AND " + cidadeDestino.getLatitude() + ") AND (C.Longitude BETWEEN" + cidadeOrigem.getLongitude() + " AND " + cidadeDestino.getLongitude() + ")");
+                    while (resultSet.next()) {
+                        if (resultSet.getInt("ID") != cidadeOrigem.getId() && resultSet.getInt("ID") != cidadeDestino.getId()) {
+                            CityMapper cityMapper = new CityMapper();
+                            cidades.add(cityMapper.mapResultSetToCity(resultSet));
+                        }
+                    }
+                    connection.close();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
+
 		}
 		
 		return ordenarCidades(cidades, cidadeOrigem);
@@ -167,7 +148,7 @@ public class CityDAO{
 		return cidades;
 		
 	}
-	
+
 	public List<City> getAllCities() {
 
 		LinkedList<City> cidades = new LinkedList<>();
