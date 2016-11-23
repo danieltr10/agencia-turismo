@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.usp.pcs.mvc.Cidade.dao.CityDAO;
 import br.usp.pcs.mvc.Cidade.data.City;
+import br.usp.pcs.mvc.Route.dao.RouteDAO;
+import br.usp.pcs.mvc.Route.data.Route;
 
 /**
  * Servlet implementation class CidadeController
@@ -33,7 +35,7 @@ public class CityController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		String pageRequested;
 		
 		pageRequested = request.getParameter("page");
@@ -44,14 +46,21 @@ public class CityController extends HttpServlet {
 
             if (request.getParameter("criarRoteiro") != null) {
 
-                CityDAO dao = CityDAO.getInstance();
-                request.setAttribute("cidades", dao.getAllCities());
+                CityDAO cityDAO = CityDAO.getInstance();
+                request.setAttribute("cidades", cityDAO.getAllCities());
 
                 RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/SelectOrigemDestino.jsp");
                 requestDispatcher.forward(request, response);
 
             } else if (request.getParameter("comprarPacote") != null) {
-                // Invoke SecondServlet's job here.
+
+                RouteDAO routeDAO = RouteDAO.getInstance();
+                Route route = routeDAO.getRouteById(1);
+//                Route route = routeDAO.getRouteById(Integer.parseInt(request.getParameter("routeId")));
+                request.setAttribute("rota", route);
+
+                RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/FecharPedido.jsp");
+                requestDispatcher.forward(request, response);
             }
 
 		} else if (pageRequested.equals("listaCidades")) {

@@ -3,6 +3,7 @@ package br.usp.pcs.mvc.Route.data;
 import java.util.ArrayList;
 
 import br.usp.pcs.mvc.Cidade.data.City;
+import br.usp.pcs.mvc.Hotel.data.Hotel;
 import br.usp.pcs.mvc.Transport.data.Transport;
 
 public class Route {
@@ -10,6 +11,7 @@ public class Route {
 	private int id;
 	private ArrayList<City> cities; 
 	private ArrayList<Transport> transports;
+	private ArrayList<Hotel> hotels;
 	private double price;
 	
 	public ArrayList<City> getCities() {
@@ -39,6 +41,13 @@ public class Route {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
 
+
+	public ArrayList<Hotel> getHotels() {
+		return hotels;
+	}
+
+	public void setHotels(ArrayList<Hotel> hotels) {
+		this.hotels = hotels;
+	}
 }

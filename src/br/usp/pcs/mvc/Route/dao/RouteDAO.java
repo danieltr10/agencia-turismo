@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import br.usp.pcs.mvc.Cidade.data.City;
+import br.usp.pcs.mvc.Hotel.data.Hotel;
 import br.usp.pcs.mvc.Route.data.Route;
 import br.usp.pcs.mvc.Transport.data.Transport;
 import br.usp.pcs.mvc.utils.CityMapper;
@@ -76,7 +77,24 @@ public class RouteDAO {
 			}
 			
 			route.setTransports(routeTransportsArray);
-			
+
+			// Getting Route Hotels
+			ResultSet routeHotelsResult = statement.executeQuery("SELECT H.* FROM Hotel H INNER JOIN RouteHotel RH WHERE RH.RouteID = " + routeId + " AND H.ID = RH.HotelID");
+
+			ArrayList<Hotel> routeHotelsArray = new ArrayList<>();
+
+			while (routeHotelsResult.next()) {
+				Hotel hotel = new Hotel();
+				hotel.setId(routeHotelsResult.getInt("ID"));
+				hotel.setCityID(routeHotelsResult.getInt("CityID"));
+				hotel.setName(routeHotelsResult.getString("Name"));
+				hotel.setPrice(routeHotelsResult.getDouble("Price"));
+				routeHotelsArray.add(hotel);
+			}
+
+			route.setHotels(routeHotelsArray);
+
+
 			return route;
 			
 		} catch (SQLException e) {
