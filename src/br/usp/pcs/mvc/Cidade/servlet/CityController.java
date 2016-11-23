@@ -73,7 +73,16 @@ public class CityController extends HttpServlet {
 
 		} else if (pageRequested.equals("HoteisETransportes")) {
 
-            request.setAttribute("cidadesEscolhidas", request.getParameterValues("city"));
+            CityDAO cityDAO = CityDAO.getInstance();
+
+			String[] cities = request.getParameterValues("city");
+            ArrayList<City> chosenCities = new ArrayList<>();
+
+            for (String cityId: cities) {
+                chosenCities.add(cityDAO.getCityById(Integer.valueOf(cityId)));
+
+            }
+            request.setAttribute("cidadesEscolhidas", chosenCities);
 
 			RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/HoteisETransportes.jsp");
 			requestDispatcher.forward(request, response);
