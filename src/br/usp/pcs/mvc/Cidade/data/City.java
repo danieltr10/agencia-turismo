@@ -7,6 +7,7 @@ public class City {
 	private String descricao;
 	private String province;
 	private String country;
+    private String imageURL;
 	private double distanciaOrigem;
 	private double latitude;
 	private double longitude;
@@ -50,6 +51,14 @@ public class City {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
+    }
 	
 	public double getLatitude() {
 		return latitude;

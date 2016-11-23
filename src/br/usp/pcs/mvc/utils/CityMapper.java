@@ -20,6 +20,7 @@ public class CityMapper {
             cidade.setCountry(resultSet.getString("Country"));
             cidade.setLatitude(resultSet.getDouble("Latitude"));
             cidade.setLongitude(resultSet.getDouble("Longitude"));
+            cidade.setImageURL(resultSet.getString("ImageURL"));
         } catch (Exception e) {
             e.printStackTrace();
         }
