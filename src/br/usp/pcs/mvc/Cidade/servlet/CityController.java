@@ -36,16 +36,24 @@ public class CityController extends HttpServlet {
 		
 		String pageRequested;
 		
-		pageRequested = (String) request.getParameter("page");
+		pageRequested = request.getParameter("page");
 
 		if (pageRequested == null) {
-			
-			CityDAO dao = CityDAO.getInstance();
-			request.setAttribute("cidades", dao.getAllCities());
-			
-			RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/SelectOrigemDestino.jsp");
-			requestDispatcher.forward(request, response);
-			
+
+        } else if (pageRequested.equals("processarBotao")) {
+
+            if (request.getParameter("criarRoteiro") != null) {
+
+                CityDAO dao = CityDAO.getInstance();
+                request.setAttribute("cidades", dao.getAllCities());
+
+                RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/SelectOrigemDestino.jsp");
+                requestDispatcher.forward(request, response);
+
+            } else if (request.getParameter("comprarPacote") != null) {
+                // Invoke SecondServlet's job here.
+            }
+
 		} else if (pageRequested.equals("listaCidades")) {
 			
 			int id = Integer.valueOf(request.getParameter("id"));
