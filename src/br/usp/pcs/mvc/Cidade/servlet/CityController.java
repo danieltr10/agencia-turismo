@@ -73,7 +73,8 @@ public class CityController extends HttpServlet {
 
 		} else if (pageRequested.equals("HoteisETransportes")) {
 
-			String[] cities = request.getParameterValues("city");
+            request.setAttribute("cidadesEscolhidas", request.getParameterValues("city"));
+
 			RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/HoteisETransportes.jsp");
 			requestDispatcher.forward(request, response);
 
