@@ -5,10 +5,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
+
 import br.usp.pcs.mvc.Cidade.data.City;
 import br.usp.pcs.mvc.utils.CityMapper;
 
@@ -16,11 +14,13 @@ import br.usp.pcs.mvc.utils.CityMapper;
 public class CityDAO{
 
 	private static final CityDAO instance = new CityDAO();
+    private CityMapper _mapper;
 
 	private CityDAO() {
 
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
+            _mapper = new CityMapper();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -34,6 +34,28 @@ public class CityDAO{
 	public static CityDAO getInstance() {
 		return instance;
 	}
+
+	public ArrayList<City> getAll() {
+        Connection connection = null;
+        try {
+            connection = createConnection();
+            Statement statement = connection.createStatement();
+
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM City");
+
+            ArrayList<City> allCities = new ArrayList<>();
+
+            while (resultSet.next()) {
+                allCities.add(_mapper.mapResultSetToCity(resultSet));
+            }
+
+            return allCities;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
 	
 	public City getCityById(int id) {
 		
