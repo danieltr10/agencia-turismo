@@ -1,11 +1,8 @@
 package br.usp.pcs.mvc.Route.dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 import br.usp.pcs.mvc.Cidade.data.City;
 import br.usp.pcs.mvc.Hotel.data.Hotel;
@@ -46,8 +43,7 @@ public class RouteDAO {
 			routeResult.next();
 			Route route = new Route();
 			route.setId(routeResult.getInt("ID"));
-			route.setPrice(routeResult.getDouble("Price"));
-			
+
 			// Getting Route Cities
 			ResultSet routeCitiesResult = statement.executeQuery("SELECT C.* FROM City C INNER JOIN RouteCity RC WHERE RC.RouteID = " + routeId + " AND C.ID = RC.CityID");
 			
@@ -104,5 +100,32 @@ public class RouteDAO {
 		}
 
 	}
+
+	public ArrayList<Route> getAllRoutes() {
+        try {
+
+            Connection connection = createConnection();
+            Statement statement = connection.createStatement();
+
+            ResultSet routeResults = statement.executeQuery("SELECT * FROM Route");
+
+            ArrayList<Route> routes = new ArrayList<>();
+
+
+            while (routeResults.next()) {
+                Route route = new Route();
+                route.setId(routeResults.getInt("ID"));
+                route.setName(routeResults.getString("Name"));
+
+                routes.add(route);
+            }
+
+            return routes;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
 
 }

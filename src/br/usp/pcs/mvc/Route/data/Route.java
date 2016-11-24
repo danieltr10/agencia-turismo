@@ -9,11 +9,11 @@ import br.usp.pcs.mvc.Transport.data.Transport;
 public class Route {
 	
 	private int id;
-	private ArrayList<City> cities; 
+    private String name;
+	private ArrayList<City> cities;
 	private ArrayList<Transport> transports;
 	private ArrayList<Hotel> hotels;
-	private double price;
-	
+
 	public ArrayList<City> getCities() {
 		return cities;
 	}
@@ -26,13 +26,6 @@ public class Route {
 	}
 	public void setTransports(ArrayList<Transport> transports) {
 		this.transports = transports;
-	}
-	
-	public double getPrice() {
-		return price;
-	}
-	public void setPrice(double price) {
-		this.price = price;
 	}
 	
 	public int getId() {
@@ -50,4 +43,12 @@ public class Route {
 	public void setHotels(ArrayList<Hotel> hotels) {
 		this.hotels = hotels;
 	}
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

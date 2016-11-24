@@ -39,12 +39,12 @@ public class CityController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String pageRequested;
-		
-		pageRequested = request.getParameter("page");
 
-		if (pageRequested == null) {
+        String pageRequested;
+
+        pageRequested = request.getParameter("page");
+
+        if (pageRequested == null) {
 
         } else if (pageRequested.equals("processarBotao")) {
 
@@ -59,45 +59,47 @@ public class CityController extends HttpServlet {
             } else if (request.getParameter("comprarPacote") != null) {
 
                 RouteDAO routeDAO = RouteDAO.getInstance();
-                Route route = routeDAO.getRouteById(1);
-//                Route route = routeDAO.getRouteById(Integer.parseInt(request.getParameter("routeId")));
-                request.setAttribute("rota", route);
 
-                RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/FecharPedido.jsp");
+                ArrayList<Route> rotas = routeDAO.getAllRoutes();
+
+                request.setAttribute("listaRotas", rotas);
+
+                RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/SelecionarPacote.jsp");
                 requestDispatcher.forward(request, response);
+
             }
 
-		} else if (pageRequested.equals("listaCidades")) {
-			
-			int id = Integer.valueOf(request.getParameter("id"));
+        } else if (pageRequested.equals("listaCidades")) {
 
-			CityDAO dao = CityDAO.getInstance();
-			request.setAttribute("cidade", dao.getCityById(id));
-			
-			RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/ListaDeCidade.jsp");
-			requestDispatcher.forward(request, response);
-			
-			
-		} else if (pageRequested.equals("ProcessaCidades")) {
-			CityDAO dao = CityDAO.getInstance();
-			int idOrigem = Integer.parseInt(request.getParameter("origem"));
-			int idDestino = Integer.parseInt(request.getParameter("destino"));
-			City origem = dao.getCityById(idOrigem);
-			City destino = dao.getCityById(idDestino);
+            int id = Integer.valueOf(request.getParameter("id"));
+
+            CityDAO dao = CityDAO.getInstance();
+            request.setAttribute("cidade", dao.getCityById(id));
+
+            RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/ListaDeCidade.jsp");
+            requestDispatcher.forward(request, response);
+
+
+        } else if (pageRequested.equals("ProcessaCidades")) {
+            CityDAO dao = CityDAO.getInstance();
+            int idOrigem = Integer.parseInt(request.getParameter("origem"));
+            int idDestino = Integer.parseInt(request.getParameter("destino"));
+            City origem = dao.getCityById(idOrigem);
+            City destino = dao.getCityById(idDestino);
 
             request.setAttribute("listaCidades", getCitiesBetween(idOrigem, idDestino));
-			request.setAttribute("cidadeOrigem", origem);
-			request.setAttribute("cidadeDestino", destino);
+            request.setAttribute("cidadeOrigem", origem);
+            request.setAttribute("cidadeDestino", destino);
 
-			RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/ListaDeCidades.jsp");
-			requestDispatcher.forward(request, response);
+            RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/ListaDeCidades.jsp");
+            requestDispatcher.forward(request, response);
 
-		} else if (pageRequested.equals("HoteisETransportes")) {
+        } else if (pageRequested.equals("HoteisETransportes")) {
 
             CityDAO cityDAO = CityDAO.getInstance();
 			HotelDAO hotelDAO = HotelDAO.getInstance();
 
-			String[] cities = request.getParameterValues("city");
+            String[] cities = request.getParameterValues("city");
             ArrayList<City> chosenCities = new ArrayList<>();
 
 			ArrayList<ArrayList<Hotel>> citiesHotel = new ArrayList<>();
@@ -112,9 +114,18 @@ public class CityController extends HttpServlet {
 
 			RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/SelectTransportHotel.jsp");
 			requestDispatcher.forward(request, response);
+            
+        } else if (pageRequested.equals("FecharPedido")) {
 
-		}
-	}
+                RouteDAO routeDAO = RouteDAO.getInstance();
+                Route route = routeDAO.getRouteById(Integer.parseInt(request.getParameter("rota")));
+                request.setAttribute("rota", route);
+
+                RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/FecharPedido.jsp");
+                requestDispatcher.forward(request, response);
+        }
+
+    }
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
