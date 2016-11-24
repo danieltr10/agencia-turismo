@@ -26,6 +26,27 @@ public class TransportDAO {
 	public static TransportDAO getInstance() {
 		return instance;
 	}
+
+    public Transport getTransportById(int id) {
+
+        try {
+
+            Connection connection = createConnection();
+            Statement statement = connection.createStatement();
+
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM Transport WHERE ID = " + id);
+            resultSet.next();
+
+            TransportMapper transportMapper = new TransportMapper();
+            return transportMapper.mapResultSetToTransport(resultSet);
+
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return new Transport();
+        }
+
+    }
 	
 	public ArrayList<Transport> getTransports(int originID, int destinationID) {
 		

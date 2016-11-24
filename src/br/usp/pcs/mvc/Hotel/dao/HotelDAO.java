@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import br.usp.pcs.mvc.utils.HotelMapper;
 import br.usp.pcs.mvc.Hotel.data.Hotel;
 public class HotelDAO {
 	private static final HotelDAO instance = new HotelDAO();
@@ -27,6 +28,27 @@ public class HotelDAO {
 
 	public static HotelDAO getInstance() {
 		return instance;
+	}
+
+	public Hotel getHotelById(int id) {
+
+		try {
+
+			Connection connection = createConnection();
+			Statement statement = connection.createStatement();
+
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM Transport WHERE ID = " + id);
+			resultSet.next();
+
+			HotelMapper hotelMapper = new HotelMapper();
+			return hotelMapper.mapResultSetToHotel(resultSet);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return new Hotel();
+		}
+
 	}
 	
 	public ArrayList<Hotel> getHoteisByCityId(int CityID) {
