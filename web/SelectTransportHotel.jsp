@@ -13,9 +13,15 @@
 
 </head>
 <body>
+<script type="text/javascript">
+    function setHotelPrice(elementID) {
+        document.getElementById("custo"+elementID).innerHTML="Custo: R$" + document.getElementById(elementID).value;
+        return true;
+    }
+</script>
 <%
     ArrayList<City> cidades = (ArrayList<City>) request.getAttribute("cidadesEscolhidas");
-    ArrayList<ArrayList<Hotel>> hotels = (ArrayList<ArrayList<Hotel>>) request.getAttribute("hoteis por cidade");
+    ArrayList<ArrayList<Hotel>> hotels = (ArrayList<ArrayList<Hotel>>) request.getAttribute("hoteisPorCidade");
     ArrayList<Hotel> hotelsPerCity;
  %>
 <div class="container" style="outline: hidden">
@@ -27,11 +33,9 @@
 
             <div class="media">
                 <div class="media-left">
-                    <a href="#">
-                        <img class="media-object img-rounded"
-                             src="http://www.cvc.com.br/media/6016178/galeria-salvador-elevador_lacerda_017-credito-divulga%C3%A7%C3%A3ocvc.jpg"
-                             width=auto height="200px" alt="<%=cidades.get(i).getName()%>">
-                    </a>
+                    <img class="media-object img-rounded"
+                         src="<%=cidades.get(i).getImageURL()%>"
+                         width=300px height="200px" alt="<%=cidades.get(i).getName()%>">
                 </div>
                 <div class="media-body">
                     <h2 class="media-heading"><%= cidades.get(i).getName() %>
@@ -41,20 +45,21 @@
                 </div>
             </div>
 
-            <label for="sel1" style="margin-top: 5%">Hotel</label>
-            <select class="form-control" id="sel1" name="Hotel">
+            <label for="<%=cidades.get(i).getId()%>" style="margin-top: 5%">Hotel</label>
+            <select class="form-control" id="<%=cidades.get(i).getId()%>" name="Hotel" onchange="setHotelPrice(<%=cidades.get(i).getId()%>)">
             <%
                 hotelsPerCity = hotels.get(i);
                 for (int j = 0; j < hotelsPerCity.size(); j++) {
             %>
-                <option value="hotelsPerCity.get(j)">
+                <option value="<%=hotelsPerCity.get(j).getPrice()%>">
                     <%= hotelsPerCity.get(j).getName() %>
                 </option>
             <%
                 }
             %>
             </select>
-            <p>Custo: </p>
+
+            <p id="<%="custo" + cidades.get(i).getId()%>">Custo: R$ <%=hotelsPerCity.get(0) != null ? hotelsPerCity.get(0).getPrice() : "0"%> </p>
 
         </div>
         <label for="sel2">Transporte</label>

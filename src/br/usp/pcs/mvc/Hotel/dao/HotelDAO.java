@@ -35,12 +35,13 @@ public class HotelDAO {
 
 			Connection connection = createConnection();
 			Statement statement = connection.createStatement();
-			Hotel hotel = new Hotel();
+
 			ArrayList<Hotel> hoteis= new ArrayList<>();
 
-			ResultSet resultSet = statement.executeQuery("SELECT H.* FROM Hotel H WHERE H.CityID = " + CityID);
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM Hotel H WHERE H.CityID = " + CityID);
 			while (resultSet.next()) {
 
+				Hotel hotel = new Hotel();
 				hotel.setId(resultSet.getInt("ID"));
 				hotel.setName(resultSet.getString("Name"));
 				hotel.setPrice(resultSet.getDouble("Price"));

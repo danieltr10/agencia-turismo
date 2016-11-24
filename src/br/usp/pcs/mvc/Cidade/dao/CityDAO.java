@@ -43,17 +43,10 @@ public class CityDAO{
 			Statement statement = connection.createStatement();
 
 			ResultSet resultSet = statement.executeQuery("SELECT * FROM City WHERE ID = " + id);
-			
 			resultSet.next();
-			City city = new City();
-			city.setId(resultSet.getInt("ID"));
-			city.setName(resultSet.getString("Name"));
-			city.setDescription(resultSet.getString("Description"));
-			city.setProvince(resultSet.getString("Province"));
-			city.setCountry(resultSet.getString("Country"));
-			city.setLatitude(resultSet.getDouble("Latitude"));
-			city.setLongitude(resultSet.getDouble("Longitude"));
-			return city;
+
+			CityMapper cityMapper = new CityMapper();
+			return cityMapper.mapResultSetToCity(resultSet);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
