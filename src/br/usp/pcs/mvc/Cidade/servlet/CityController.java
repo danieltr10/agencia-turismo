@@ -19,6 +19,8 @@ import br.usp.pcs.mvc.Cidade.dao.CityDAO;
 import br.usp.pcs.mvc.Cidade.data.City;
 import br.usp.pcs.mvc.Route.dao.RouteDAO;
 import br.usp.pcs.mvc.Route.data.Route;
+import br.usp.pcs.mvc.Transport.dao.TransportDAO;
+import br.usp.pcs.mvc.Transport.data.Transport;
 
 /**
  * Servlet implementation class CidadeController
@@ -98,6 +100,7 @@ public class CityController extends HttpServlet {
 
             CityDAO cityDAO = CityDAO.getInstance();
 			HotelDAO hotelDAO = HotelDAO.getInstance();
+            TransportDAO transportDAO = TransportDAO.getInstance();
 
             String[] cities = request.getParameterValues("city");
             ArrayList<City> chosenCities = new ArrayList<>();
@@ -109,7 +112,17 @@ public class CityController extends HttpServlet {
 				citiesHotel.add(hotelDAO.getHoteisByCityId(Integer.valueOf(cityId)));
             }
 
+            ArrayList<ArrayList<Transport>> citiesTransports = new ArrayList<>();
+            for (int i = 0; i < cities.length; i++) {
+                if (i == cities.length-1) {
+                    citiesTransports.add(transportDAO.getTransports(Integer.valueOf(cities[i]), Integer.valueOf(cities[0])));
+                } else {
+                    citiesTransports.add(transportDAO.getTransports(Integer.valueOf(cities[i]), Integer.valueOf(cities[i + 1])));
+                }
+            }
+
             request.setAttribute("hoteisPorCidade", citiesHotel);
+            request.setAttribute("transportesPorCidade", citiesTransports);
             request.setAttribute("cidadesEscolhidas", chosenCities);
 
 			RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/SelectTransportHotel.jsp");

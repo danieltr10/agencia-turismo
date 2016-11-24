@@ -1,6 +1,7 @@
 <%@ page import="br.usp.pcs.mvc.Cidade.data.City" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="br.usp.pcs.mvc.Hotel.data.Hotel" %>
+<%@ page import="br.usp.pcs.mvc.Transport.data.Transport" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -22,7 +23,9 @@
 <%
     ArrayList<City> cidades = (ArrayList<City>) request.getAttribute("cidadesEscolhidas");
     ArrayList<ArrayList<Hotel>> hotels = (ArrayList<ArrayList<Hotel>>) request.getAttribute("hoteisPorCidade");
+    ArrayList<ArrayList<Transport>> transports = (ArrayList<ArrayList<Transport>>) request.getAttribute("transportesPorCidade");
     ArrayList<Hotel> hotelsPerCity;
+    ArrayList<Transport> transportsBetweenCities;
  %>
 <div class="container" style="outline: hidden">
     <h2>Seleção de Transportes e Hoteis</h2>
@@ -64,11 +67,16 @@
         </div>
         <label for="sel2">Transporte</label>
         <select class="form-control" id="sel2" name="Transporte">
-
+            <%
+                transportsBetweenCities = transports.get(i);
+                for (int j = 0; j < transportsBetweenCities.size(); j++) {
+            %>
             <option value="Transport">
-                transporte
+                <%= transportsBetweenCities.get(j).getCompany() + " - " + transportsBetweenCities.get(j).getType() + ": R$" + transportsBetweenCities.get(j).getPrice()%>
             </option>
-
+            <%
+                }
+            %>
         </select>
         <br>
     </div>

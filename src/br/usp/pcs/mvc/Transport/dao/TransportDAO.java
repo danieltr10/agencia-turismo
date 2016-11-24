@@ -34,7 +34,7 @@ public class TransportDAO {
 			Connection connection = createConnection();
 			Statement statement = connection.createStatement();
 
-			ResultSet resultSet = statement.executeQuery("SELECT * FROM TRANSPORT WHERE OriginID = " + originID + " AND DestinationID = " + destinationID );
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM Transport WHERE OriginID = " + originID + " AND DestinationID = " + destinationID );
 
             ArrayList<Transport> transports = new ArrayList<>();
 
