@@ -4,6 +4,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import br.usp.pcs.mvc.Hotel.data.Hotel;
@@ -28,26 +29,30 @@ public class HotelDAO {
 		return instance;
 	}
 	
-	public Hotel getHotelById(int CityID) {
-		
+	public ArrayList<Hotel> getHoteisByCityId(int CityID) {
+
 		try {
 
 			Connection connection = createConnection();
 			Statement statement = connection.createStatement();
+			Hotel hotel = new Hotel();
+			ArrayList<Hotel> hoteis= new ArrayList<>();
 
 			ResultSet resultSet = statement.executeQuery("SELECT H.* FROM Hotel H WHERE H.CityID = " + CityID);
-			Hotel hotel = new Hotel();
-			hotel.setId(resultSet.getInt("ID"));
-			hotel.setName(resultSet.getString("Name"));
-			hotel.setPrice(resultSet.getDouble("Price"));
-			hotel.setCityID(resultSet.getInt("CityID"));
-			resultSet.next();
-			return hotel;
-			
+			while (resultSet.next()) {
+
+				hotel.setId(resultSet.getInt("ID"));
+				hotel.setName(resultSet.getString("Name"));
+				hotel.setPrice(resultSet.getDouble("Price"));
+				hotel.setCityID(resultSet.getInt("CityID"));
+				hoteis.add(hotel);
+			}
+			return hoteis;
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return new Hotel();
+            return null;
 		}
 
 	}

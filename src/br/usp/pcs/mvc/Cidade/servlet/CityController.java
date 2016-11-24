@@ -1,8 +1,9 @@
 package br.usp.pcs.mvc.Cidade.servlet;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import br.usp.pcs.mvc.Cidade.dao.CityDAO;
+import br.usp.pcs.mvc.Cidade.data.City;
+import br.usp.pcs.mvc.Hotel.dao.HotelDAO;
+import br.usp.pcs.mvc.Hotel.data.Hotel;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import br.usp.pcs.mvc.Cidade.dao.CityDAO;
 import br.usp.pcs.mvc.Cidade.data.City;
@@ -35,7 +39,7 @@ public class CityController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
 		String pageRequested;
 		
 		pageRequested = request.getParameter("page");
@@ -91,17 +95,22 @@ public class CityController extends HttpServlet {
 		} else if (pageRequested.equals("HoteisETransportes")) {
 
             CityDAO cityDAO = CityDAO.getInstance();
+			HotelDAO hotelDAO = HotelDAO.getInstance();
 
 			String[] cities = request.getParameterValues("city");
             ArrayList<City> chosenCities = new ArrayList<>();
 
+			ArrayList<ArrayList<Hotel>> citiesHotel = new ArrayList<>();
             for (String cityId: cities) {
                 chosenCities.add(cityDAO.getCityById(Integer.valueOf(cityId)));
 
+				citiesHotel.add(hotelDAO.getHoteisByCityId(Integer.valueOf(cityId)));
             }
+
+            request.setAttribute("hoteisPorCidade", citiesHotel);
             request.setAttribute("cidadesEscolhidas", chosenCities);
 
-			RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/HoteisETransportes.jsp");
+			RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/SelectTransportHotel.jsp");
 			requestDispatcher.forward(request, response);
 
 		}
