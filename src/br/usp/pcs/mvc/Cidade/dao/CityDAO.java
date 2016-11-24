@@ -130,10 +130,14 @@ public class CityDAO{
 			}
 
 		}
-		
+		setDistacia(cidades, cidadeOrigem);
 		return ordenarCidades(cidades, cidadeOrigem);
 	}
-
+	private void setDistacia (List<City> cidades, City cidadeOrigem){
+		for (City cidade : cidades){
+			cidade.setDistanciaOrigem(Math.pow(Math.pow(cidadeOrigem.getLatitude() - cidade.getLatitude(),2) + Math.pow(cidadeOrigem.getLongitude() - cidade.getLongitude(),2),0.5));
+		}
+	}
 	private List<City> ordenarCidades(List<City> cidades, City cidadeOrigem){
 
 		Collections.sort(cidades, Comparator.comparing(City::getDistanciaOrigem));
