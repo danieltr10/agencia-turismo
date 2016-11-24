@@ -1,13 +1,10 @@
 package br.usp.pcs.mvc.Transport.dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.LinkedList;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import br.usp.pcs.mvc.Transport.data.Transport;
+import br.usp.pcs.mvc.utils.TransportMapper;
 
 public class TransportDAO {
 	private static final TransportDAO instance = new TransportDAO();
@@ -30,7 +27,7 @@ public class TransportDAO {
 		return instance;
 	}
 	
-	public Transport getTransport(int originID, int destinationID) {
+	public ArrayList<Transport> getTransports(int originID, int destinationID) {
 		
 		try {
 
@@ -38,20 +35,19 @@ public class TransportDAO {
 			Statement statement = connection.createStatement();
 
 			ResultSet resultSet = statement.executeQuery("SELECT * FROM TRANSPORT WHERE OriginID = " + originID + " AND DestinationID = " + destinationID );
-			Transport transport = new Transport();
-			transport.setId(resultSet.getInt("ID"));
-			transport.setType(resultSet.getString("Type"));
-			transport.setCompany(resultSet.getString("Company"));
-			transport.setDestinationCityID(resultSet.getInt("DestinationID"));
-			transport.setOriginCityID(resultSet.getInt("OriginID"));
-			transport.setPrice(resultSet.getDouble("Price"));
-			resultSet.next();
-			return transport;
+
+            ArrayList<Transport> transports = new ArrayList<>();
+
+            while (resultSet.next()) {
+                TransportMapper transportMapper = new TransportMapper();
+                transports.add(transportMapper.mapResultSetToTransport(resultSet));
+            }
+			return transports;
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return new Transport();
+			return new ArrayList<>();
 		}
 
 	}
