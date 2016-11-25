@@ -27,8 +27,8 @@ import br.usp.pcs.mvc.Transport.data.Transport;
  */
 @WebServlet("/")
 public class CityController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
+    private static final long serialVersionUID = 1L;
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -37,10 +37,10 @@ public class CityController extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String pageRequested;
 
@@ -99,22 +99,22 @@ public class CityController extends HttpServlet {
         } else if (pageRequested.equals("HoteisETransportes")) {
 
             CityDAO cityDAO = CityDAO.getInstance();
-			HotelDAO hotelDAO = HotelDAO.getInstance();
+            HotelDAO hotelDAO = HotelDAO.getInstance();
             TransportDAO transportDAO = TransportDAO.getInstance();
 
             String[] cities = request.getParameterValues("city");
             ArrayList<City> chosenCities = new ArrayList<>();
 
-			ArrayList<ArrayList<Hotel>> citiesHotel = new ArrayList<>();
-            for (String cityId: cities) {
+            ArrayList<ArrayList<Hotel>> citiesHotel = new ArrayList<>();
+            for (String cityId : cities) {
                 chosenCities.add(cityDAO.getCityById(Integer.valueOf(cityId)));
 
-				citiesHotel.add(hotelDAO.getHoteisByCityId(Integer.valueOf(cityId)));
+                citiesHotel.add(hotelDAO.getHoteisByCityId(Integer.valueOf(cityId)));
             }
 
             ArrayList<ArrayList<Transport>> citiesTransports = new ArrayList<>();
             for (int i = 0; i < cities.length; i++) {
-                if (i == cities.length-1) {
+                if (i == cities.length - 1) {
                     citiesTransports.add(transportDAO.getTransports(Integer.valueOf(cities[i]), Integer.valueOf(cities[0])));
                 } else {
                     citiesTransports.add(transportDAO.getTransports(Integer.valueOf(cities[i]), Integer.valueOf(cities[i + 1])));
@@ -125,30 +125,39 @@ public class CityController extends HttpServlet {
             request.setAttribute("transportesPorCidade", citiesTransports);
             request.setAttribute("cidadesEscolhidas", chosenCities);
 
-			RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/SelectTransportHotel.jsp");
-			requestDispatcher.forward(request, response);
-            
+            RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/SelectTransportHotel.jsp");
+            requestDispatcher.forward(request, response);
+
         } else if (pageRequested.equals("FecharPedido")) {
 
-                RouteDAO routeDAO = RouteDAO.getInstance();
-                Route route = routeDAO.getRouteById(Integer.parseInt(request.getParameter("rota")));
-                request.setAttribute("rota", route);
+            RouteDAO routeDAO = RouteDAO.getInstance();
+            Route route = routeDAO.getRouteById(Integer.parseInt(request.getParameter("rota")));
+            request.setAttribute("rota", route);
 
-                RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/FecharPedido.jsp");
-                requestDispatcher.forward(request, response);
+            RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/FecharPedido.jsp");
+            requestDispatcher.forward(request, response);
+        } else if (pageRequested.equals("CadastraHotel")) {
+            CityDAO cityDAO = CityDAO.getInstance();
+
+            ArrayList<City> allCities = cityDAO.getAll();
+
+            request.setAttribute("allCities", allCities);
+
+            RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/CadastrarHoteis.jsp");
+            requestDispatcher.forward(request, response);
         }
 
     }
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+     */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // TODO Auto-generated method stub
+        doGet(request, response);
+    }
 
-	private List<City> getCitiesBetween(int idOrigin, int idDestiny) {
+    private List<City> getCitiesBetween(int idOrigin, int idDestiny) {
         CityDAO cityDAO = CityDAO.getInstance();
 
         return cityDAO.getCitiesBetween(cityDAO.getCityById(idOrigin), cityDAO.getCityById(idDestiny));
