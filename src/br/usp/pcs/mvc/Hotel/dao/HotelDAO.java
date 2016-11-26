@@ -26,6 +26,20 @@ public class HotelDAO {
 		return DriverManager.getConnection("jdbc:mariadb://143.107.102.14:3306/mdb003?user=t1g3&password=2RpJ?!");
 	}
 
+	public boolean insertHotel(String name, double price, int cityID) {
+        try {
+            Connection connection = createConnection();
+            Statement statement = connection.createStatement();
+
+            statement.executeQuery("INSERT INTO `mdb003`.`Hotel` (`Name`, `Price`, `CityID`) VALUES ('"+ name +"', '"+ price +"', '"+ cityID +"')");
+
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+	}
+
 	public static HotelDAO getInstance() {
 		return instance;
 	}

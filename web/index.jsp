@@ -83,7 +83,7 @@
         <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox">
             <div class="item active">
-                <img src="<%= request.getContextPath()%>/res/Cuba.jpg"
+                <img src="http://pt.freeimages.com/download/file/78b7005a578cb52c535a55e8ea303512/1600x1200"
                      alt="Chania">
                 <div class="carousel-caption">
                     <h3>Cuba</h3>

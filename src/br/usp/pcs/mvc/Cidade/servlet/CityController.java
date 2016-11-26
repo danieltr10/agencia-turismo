@@ -145,6 +145,16 @@ public class CityController extends HttpServlet {
 
             RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/CadastrarHoteis.jsp");
             requestDispatcher.forward(request, response);
+        } else if (pageRequested.equals("RealizaCadastro")) {
+            HotelDAO hotelDAO = HotelDAO.getInstance();
+
+
+
+            hotelDAO.insertHotel(request.getParameter("name"), Double.parseDouble(request.getParameter("price")), Integer.parseInt(request.getParameter("CityID")));
+
+            RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+            requestDispatcher.forward(request,response);
+
         }
 
     }
