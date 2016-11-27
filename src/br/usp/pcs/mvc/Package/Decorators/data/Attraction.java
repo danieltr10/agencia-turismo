@@ -1,4 +1,4 @@
-package br.usp.pcs.mvc.Package.Decorators;
+package br.usp.pcs.mvc.Package.Decorators.data;
 
 import br.usp.pcs.mvc.Hotel.data.Hotel;
 import br.usp.pcs.mvc.Package.Decorators.Interfaces.IAttraction;
