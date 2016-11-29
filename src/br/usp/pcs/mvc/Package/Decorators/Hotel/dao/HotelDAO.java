@@ -1,14 +1,14 @@
-package br.usp.pcs.mvc.Hotel.dao;
+package br.usp.pcs.mvc.Package.Decorators.Hotel.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+
+import br.usp.pcs.mvc.Package.Decorators.Hotel.data.Hotel;
 import br.usp.pcs.mvc.utils.HotelMapper;
-import br.usp.pcs.mvc.Hotel.data.Hotel;
+
 public class HotelDAO {
 	private static final HotelDAO instance = new HotelDAO();
 

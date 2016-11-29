@@ -1,6 +1,6 @@
-package br.usp.pcs.mvc.Package.Decorators.data;
+package br.usp.pcs.mvc.Package.Decorators.Attraction.data;
 
-import br.usp.pcs.mvc.Hotel.data.Hotel;
+import br.usp.pcs.mvc.Package.Decorators.Hotel.data.Hotel;
 import br.usp.pcs.mvc.Package.Decorators.Interfaces.IAttraction;
 import br.usp.pcs.mvc.Package.Interfaces.IPackage;
 import br.usp.pcs.mvc.Transport.data.Transport;
@@ -17,11 +17,6 @@ public class Attraction implements IAttraction {
         this.content = content;
         this.price = price;
         this.description = description;
-    }
-
-    @Override
-    public String getDescription() {
-        return content.getDescription();
     }
 
     @Override
@@ -49,7 +44,7 @@ public class Attraction implements IAttraction {
     }
 
     @Override
-    public Double getPrice() {
-        return content.getPrice() + price;
+    public Double getTotalPrice() {
+        return content.getTotalPrice() + price;
     }
 }

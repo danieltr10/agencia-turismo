@@ -3,7 +3,7 @@ package br.usp.pcs.mvc.utils;
 /**
  * Created by Mauricio on 11/24/16.
  */
-import br.usp.pcs.mvc.Hotel.data.Hotel;
+import br.usp.pcs.mvc.Package.Decorators.Hotel.data.Hotel;
 
 import java.sql.ResultSet;
 

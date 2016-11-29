@@ -1,27 +1,21 @@
 package br.usp.pcs.mvc.Package.data;
 
-import br.usp.pcs.mvc.Hotel.data.Hotel;
-import br.usp.pcs.mvc.Package.Decorators.data.Attraction;
+import br.usp.pcs.mvc.Package.Decorators.Hotel.data.Hotel;
+import br.usp.pcs.mvc.Package.Decorators.Attraction.data.Attraction;
 import br.usp.pcs.mvc.Package.Interfaces.IPackage;
 import br.usp.pcs.mvc.Transport.data.Transport;
-;
+
 import java.util.ListIterator;
 
-/**
- * Created by andreebr on 26/11/2016.
- */
 public class Package implements IPackage {
+    private int id;
+    private String name;
     private String description;
 
     public Package(String descritption) {
         this.description = descritption;
     }
 
-
-    @Override
-    public String getDescription() {
-        return description;
-    }
 
     @Override
     public ListIterator<Hotel> getHotels() {
@@ -39,7 +33,16 @@ public class Package implements IPackage {
     }
 
     @Override
-    public Double getPrice() {
+    public Double getTotalPrice() {
         return 0.0;
+    }
+
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

@@ -2,8 +2,8 @@ package br.usp.pcs.mvc.Cidade.servlet;
 
 import br.usp.pcs.mvc.Cidade.dao.CityDAO;
 import br.usp.pcs.mvc.Cidade.data.City;
-import br.usp.pcs.mvc.Hotel.dao.HotelDAO;
-import br.usp.pcs.mvc.Hotel.data.Hotel;
+import br.usp.pcs.mvc.Package.Decorators.Hotel.dao.HotelDAO;
+import br.usp.pcs.mvc.Package.Decorators.Hotel.data.Hotel;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,8 +15,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.usp.pcs.mvc.Cidade.dao.CityDAO;
-import br.usp.pcs.mvc.Cidade.data.City;
 import br.usp.pcs.mvc.Route.dao.RouteDAO;
 import br.usp.pcs.mvc.Route.data.Route;
 import br.usp.pcs.mvc.Transport.dao.TransportDAO;
