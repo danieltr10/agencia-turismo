@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import br.usp.pcs.mvc.Cidade.data.City;
 import br.usp.pcs.mvc.Package.Decorators.Hotel.data.Hotel;
-import br.usp.pcs.mvc.Transport.data.Transport;
+import br.usp.pcs.mvc.Package.Decorators.Transport.data.Transport;
 
 public class Route {
 	

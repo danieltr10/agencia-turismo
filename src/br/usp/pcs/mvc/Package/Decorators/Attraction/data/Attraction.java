@@ -3,19 +3,55 @@ package br.usp.pcs.mvc.Package.Decorators.Attraction.data;
 import br.usp.pcs.mvc.Package.Decorators.Hotel.data.Hotel;
 import br.usp.pcs.mvc.Package.Decorators.Interfaces.IAttraction;
 import br.usp.pcs.mvc.Package.Interfaces.IPackage;
-import br.usp.pcs.mvc.Transport.data.Transport;
+import br.usp.pcs.mvc.Package.Decorators.Transport.data.Transport;
 
 import java.util.ArrayList;
 import java.util.ListIterator;
 
 public class Attraction implements IAttraction {
-    private IPackage content;
+
+    private String Id;
+    private String name;
     private Double price;
     private String description;
+    private IPackage content;
 
-    public Attraction(IPackage content, Double price, String description) {
+    public Attraction() {
+    }
+
+    public Attraction(IPackage content) {
         this.content = content;
+    }
+
+    public String getId() {
+        return Id;
+    }
+
+    public void setId(String id) {
+        Id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
         this.description = description;
     }
 
@@ -47,4 +83,5 @@ public class Attraction implements IAttraction {
     public Double getTotalPrice() {
         return content.getTotalPrice() + price;
     }
+
 }

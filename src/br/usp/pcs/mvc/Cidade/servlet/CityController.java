@@ -17,8 +17,8 @@ import java.util.List;
 
 import br.usp.pcs.mvc.Route.dao.RouteDAO;
 import br.usp.pcs.mvc.Route.data.Route;
-import br.usp.pcs.mvc.Transport.dao.TransportDAO;
-import br.usp.pcs.mvc.Transport.data.Transport;
+import br.usp.pcs.mvc.Package.Decorators.Transport.dao.TransportDAO;
+import br.usp.pcs.mvc.Package.Decorators.Transport.data.Transport;
 
 /**
  * Servlet implementation class CidadeController
@@ -51,7 +51,10 @@ public class CityController extends HttpServlet {
             if (request.getParameter("criarRoteiro") != null) {
 
                 CityDAO cityDAO = CityDAO.getInstance();
-                request.setAttribute("cidades", cityDAO.getAllCities());
+
+                List<City> allCities = cityDAO.getAllCities();
+
+                request.setAttribute("cidades", allCities);
 
                 RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/SelectOrigemDestino.jsp");
                 requestDispatcher.forward(request, response);

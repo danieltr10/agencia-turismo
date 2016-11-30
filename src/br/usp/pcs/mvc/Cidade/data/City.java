@@ -4,7 +4,7 @@ public class City {
 
 	private int id;
 	private String name;
-	private String descricao;
+	private String description;
 	private String province;
 	private String country;
     private String imageURL;
@@ -29,11 +29,11 @@ public class City {
 	}
 	
 	public String getDescription() {
-		return descricao;
+		return description;
 	}
 	
 	public void setDescription(String description) {
-		this.descricao = description;
+		this.description = description;
 	}
 	
 	public String getProvince() {

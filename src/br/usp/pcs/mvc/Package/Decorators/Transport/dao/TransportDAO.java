@@ -1,9 +1,9 @@
-package br.usp.pcs.mvc.Transport.dao;
+package br.usp.pcs.mvc.Package.Decorators.Transport.dao;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
-import br.usp.pcs.mvc.Transport.data.Transport;
+
+import br.usp.pcs.mvc.Package.Decorators.Transport.data.Transport;
 import br.usp.pcs.mvc.utils.TransportMapper;
 
 public class TransportDAO {

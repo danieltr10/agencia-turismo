@@ -1,6 +1,6 @@
 package br.usp.pcs.mvc.utils;
 
-import br.usp.pcs.mvc.Transport.data.Transport;
+import br.usp.pcs.mvc.Package.Decorators.Transport.data.Transport;
 
 import java.sql.ResultSet;
 /**

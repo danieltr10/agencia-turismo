@@ -3,7 +3,7 @@ package br.usp.pcs.mvc.Package.Decorators.Hotel.data;
 import br.usp.pcs.mvc.Package.Decorators.Attraction.data.Attraction;
 import br.usp.pcs.mvc.Package.Decorators.Interfaces.IHotel;
 import br.usp.pcs.mvc.Package.Interfaces.IPackage;
-import br.usp.pcs.mvc.Transport.data.Transport;
+import br.usp.pcs.mvc.Package.Decorators.Transport.data.Transport;
 
 import java.util.ArrayList;
 import java.util.ListIterator;

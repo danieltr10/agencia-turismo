@@ -1,7 +1,7 @@
 <%@ page import="br.usp.pcs.mvc.Cidade.data.City" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="br.usp.pcs.mvc.Package.Decorators.Hotel.data.Hotel" %>
-<%@ page import="br.usp.pcs.mvc.Transport.data.Transport" %>
+<%@ page import="br.usp.pcs.mvc.Package.Decorators.Transport.data.Transport" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
