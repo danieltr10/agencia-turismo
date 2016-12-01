@@ -21,96 +21,116 @@
     ListIterator<Transport> transports = pacote.getTransports();
     ListIterator<Hotel> hotels = pacote.getHotels();
     ListIterator<Attraction> attractions = pacote.getAttractions();
+    session.setAttribute("packageID", pacote.getPackageId());
 %>
 
-<div class="container">
-    <h2 align="center">Resumo do Roteiro</h2>
-    <br>
-    <table class="table table-bordered">
-        <thead>
-        <tr>
-            <th>Nome</th>
-            <th>Decrição</th>
-            <th>Preço</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr class="active">
-            <td><%= pacote.getPackageName()%>
-            </td>
-            <td colspan="2"><%= pacote.getPackageDescription()%>
-            </td>
-        </tr>
+<form method="post" action="<%= request.getContextPath() %>/CityController">
 
-        <tr>
-           <td colspan="3">Hotéis</td>
-        </tr>
+    <div class="container">
+        <div class="jumbtron">
+            <h2 align="center">Resumo do Roteiro</h2>
+            <br>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Decrição</th>
+                    <th>Preço</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="active">
+                    <td><%= pacote.getPackageName()%>
+                    </td>
+                    <td colspan="2"><%= pacote.getPackageDescription()%>
+                    </td>
+                </tr>
 
-        <%
-            Hotel hotel;
-            while (hotels.hasNext()) {
-                hotel = hotels.next();
-        %>
+                <tr>
+                    <td colspan="3">Hotéis</td>
+                </tr>
 
-        <tr class="success">
-            <td colspan="2"><%= hotel.getName()%></td>
-            <td>R$ <%= hotel.getPrice()%></td>
-        </tr>
+                <%
+                    Hotel hotel;
+                    while (hotels.hasNext()) {
+                        hotel = hotels.next();
+                %>
 
-        <%
-            }
-        %>
+                <tr class="success">
+                    <td colspan="2"><%= hotel.getName()%>
+                    </td>
+                    <td>R$ <%= hotel.getPrice()%>
+                    </td>
+                </tr>
 
-        <tr>
-            <td colspan="3">Transportes</td>
-        </tr>
+                <%
+                    }
+                %>
 
-        <%
-            Transport transport;
-            while (transports.hasNext()) {
-                transport = transports.next();
-        %>
+                <tr>
+                    <td colspan="3">Transportes</td>
+                </tr>
 
-        <tr class="info">
-            <td><%= transport.getCompany()%></td>
-            <td><%= transport.getType()%></td>
-            <td>R$ <%= transport.getPrice()%></td>
-        </tr>
+                <%
+                    Transport transport;
+                    while (transports.hasNext()) {
+                        transport = transports.next();
+                %>
 
-        <%
-            }
-        %>
+                <tr class="info">
+                    <td><%= transport.getCompany()%>
+                    </td>
+                    <td><%= transport.getType()%>
+                    </td>
+                    <td>R$ <%= transport.getPrice()%>
+                    </td>
+                </tr>
+
+                <%
+                    }
+                %>
 
 
-        <tr>
-            <td colspan="3">Atrações</td>
-        </tr>
+                <tr>
+                    <td colspan="3">Atrações</td>
+                </tr>
 
-        <%
-            Attraction attraction;
-            while (attractions.hasNext()) {
-                attraction = attractions.next();
-        %>
+                <%
+                    Attraction attraction;
+                    while (attractions.hasNext()) {
+                        attraction = attractions.next();
+                %>
 
-        <tr class="warning">
-            <td><%= attraction.getName()%></td>
-            <td><%= attraction.getDescription()%></td>
-            <td>R$ <%= attraction.getPrice()%></td>
-        </tr>
+                <tr class="warning">
+                    <td><%= attraction.getName()%>
+                    </td>
+                    <td><%= attraction.getDescription()%>
+                    </td>
+                    <td>R$ <%= attraction.getPrice()%>
+                    </td>
+                </tr>
 
-        <%
-            }
-        %>
+                <%
+                    }
+                %>
 
-        <tr class="active">
-            <td colspan=2>
-                Valor Total do Pacote:
-            </td>
-            <td>R$ <%= pacote.getTotalPrice()%></td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+                <tr class="active">
+                    <td colspan=2>
+                        Valor Total do Pacote:
+                    </td>
+                    <td>R$ <%= pacote.getTotalPrice()%>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <input type="hidden" name="packageID" value="<%= pacote.getPackageId()%>"/>
+        <input type="hidden" name="page" value="SelecionarCliente"/>
+        <button type="submit" class="btn btn-primary btn-block">Continuar</button>
+
+    </div>
+</form>
 
 </body>
 </html>
