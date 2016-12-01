@@ -25,6 +25,7 @@ import br.usp.pcs.mvc.Route.dao.RouteDAO;
 import br.usp.pcs.mvc.Route.data.Route;
 import br.usp.pcs.mvc.Package.Decorators.Transport.dao.TransportDAO;
 import br.usp.pcs.mvc.Package.Decorators.Transport.data.Transport;
+import br.usp.pcs.mvc.Venda.dao.VendaPacoteDAO;
 
 /**
  * Servlet implementation class CidadeController
@@ -76,7 +77,7 @@ public class CityController extends HttpServlet {
 
             selecionarCliente(request, response);
 
-        } else if (pageRequested.equals("ConcluiVendaPacote")) {
+        } else if (pageRequested.equals("ConcluirVendaPacote")) {
             
             concluirVendaPacote(request, response);
             
@@ -84,10 +85,17 @@ public class CityController extends HttpServlet {
 
     }
 
-    private void concluirVendaPacote(HttpServletRequest request, HttpServletResponse response) {
+    private void concluirVendaPacote(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        VendaPacoteDAO vendaPacoteDAO = VendaPacoteDAO.getInstance();
 
+        int packageID = Integer.parseInt(request.getParameter("packageID"));
+        int cpf = Integer.parseInt(request.getParameter("cpf"));
 
+        vendaPacoteDAO.insertVendaPacote(cpf, packageID);
+
+        RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+        requestDispatcher.forward(request, response);
     }
 
     private void selecionarCliente(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
