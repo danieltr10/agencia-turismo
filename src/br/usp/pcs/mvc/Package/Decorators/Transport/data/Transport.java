@@ -2,22 +2,28 @@ package br.usp.pcs.mvc.Package.Decorators.Transport.data;
 
 import br.usp.pcs.mvc.Package.Decorators.Attraction.data.Attraction;
 import br.usp.pcs.mvc.Package.Decorators.Hotel.data.Hotel;
-import br.usp.pcs.mvc.Package.Decorators.Interfaces.ITransport;
+import br.usp.pcs.mvc.Package.Decorators.Interfaces.Content;
 import br.usp.pcs.mvc.Package.Interfaces.IPackage;
 
 import java.util.ArrayList;
 import java.util.ListIterator;
 
-public class Transport implements ITransport {
+public class Transport extends Content {
 
 	private int id;
 	private String type;
-	private double price;
-	private int originCityID;
-	private int destinationCityID;
+	private Double price;
+	private int originID;
+	private int destinationID;
 	private String company;
-	private IPackage content;
-	
+
+	public Transport() {
+	}
+
+	public Transport(IPackage content) {
+		super(content);
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -48,19 +54,19 @@ public class Transport implements ITransport {
 		this.price = price;
 	}
 	
-	public int getDestinationCityID() {
-		return destinationCityID;
+	public int getDestinationID() {
+		return destinationID;
 	}
 	
-	public void setDestinationCityID(int destinationCityID) {
-		this.destinationCityID = destinationCityID;
+	public void setDestinationID(int destinationID) {
+		this.destinationID = destinationID;
 	}
-	public int getOriginCityID() {
-		return originCityID;
+	public int getOriginID() {
+		return originID;
 	}
 	
-	public void setOriginCityID(int originCityID) {
-		this.originCityID = originCityID;
+	public void setOriginID(int originID) {
+		this.originID = originID;
 	}
 
 	@Override
@@ -78,6 +84,7 @@ public class Transport implements ITransport {
             return transportList.listIterator();
         } else {
             transports.add(this);
+            transports.previous();
             return transports;
         }
 	}

@@ -15,6 +15,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.usp.pcs.mvc.Package.Interfaces.IPackage;
+import br.usp.pcs.mvc.Package.dao.PackageDAO;
+import br.usp.pcs.mvc.Package.data.Package;
 import br.usp.pcs.mvc.Route.dao.RouteDAO;
 import br.usp.pcs.mvc.Route.data.Route;
 import br.usp.pcs.mvc.Package.Decorators.Transport.dao.TransportDAO;
@@ -61,11 +64,11 @@ public class CityController extends HttpServlet {
 
             } else if (request.getParameter("comprarPacote") != null) {
 
-                RouteDAO routeDAO = RouteDAO.getInstance();
+                PackageDAO packageDAO = PackageDAO.getInstance();
 
-                ArrayList<Route> rotas = routeDAO.getAllRoutes();
+                List<IPackage> packages = packageDAO.getAll();
 
-                request.setAttribute("listaRotas", rotas);
+                request.setAttribute("listaPackages", packages);
 
                 RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/SelecionarPacote.jsp");
                 requestDispatcher.forward(request, response);
@@ -130,10 +133,10 @@ public class CityController extends HttpServlet {
 			requestDispatcher.forward(request, response);
             
         } else if (pageRequested.equals("FecharPedido")) {
+                PackageDAO packageDAO = PackageDAO.getInstance();
 
-                RouteDAO routeDAO = RouteDAO.getInstance();
-                Route route = routeDAO.getRouteById(Integer.parseInt(request.getParameter("rota")));
-                request.setAttribute("rota", route);
+                IPackage pacote = packageDAO.getPackageById(Integer.parseInt(request.getParameter("package")));
+                request.setAttribute("package", pacote);
 
                 RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/FecharPedido.jsp");
                 requestDispatcher.forward(request, response);

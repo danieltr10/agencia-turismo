@@ -7,7 +7,7 @@ import br.usp.pcs.mvc.Cidade.data.City;
 import br.usp.pcs.mvc.Package.Decorators.Hotel.data.Hotel;
 import br.usp.pcs.mvc.Route.data.Route;
 import br.usp.pcs.mvc.Package.Decorators.Transport.data.Transport;
-import br.usp.pcs.mvc.utils.CityMapper;
+import br.usp.pcs.mvc.utils.Factory;
 
 public class RouteDAO {
 	private static final RouteDAO instance = new RouteDAO();
@@ -47,10 +47,10 @@ public class RouteDAO {
 			ResultSet routeCitiesResult = statement.executeQuery("SELECT C.* FROM City C INNER JOIN RouteCity RC WHERE RC.RouteID = " + routeId + " AND C.ID = RC.CityID");
 			
 			ArrayList<City> routeCitiesArray = new ArrayList<>();
-			
+			Factory<City> cityFactory = new Factory<>(City.class);
+
 			while (routeCitiesResult.next()) {
-				CityMapper cityMapper = new CityMapper();
-				routeCitiesArray.add(cityMapper.mapResultSetToCity(routeCitiesResult));
+				routeCitiesArray.add(cityFactory.mapNewResult(routeCitiesResult));
 			}
 			
 			route.setCities(routeCitiesArray);
@@ -59,16 +59,10 @@ public class RouteDAO {
 			ResultSet routeTransportsResult = statement.executeQuery("SELECT T.* FROM Transport T INNER JOIN RouteTransport RT WHERE RT.RouteID = " + routeId + " AND T.ID = RT.TransportID");
 			
 			ArrayList<Transport> routeTransportsArray = new ArrayList<>();
+			Factory<Transport> transportFactory = new Factory<>(Transport.class);
 			
 			while (routeTransportsResult.next()) {
-				Transport transport = new Transport();
-				transport.setId(routeTransportsResult.getInt("ID"));
-				transport.setOriginCityID(routeTransportsResult.getInt("OriginID"));
-				transport.setDestinationCityID(routeTransportsResult.getInt("DestinationID"));
-				transport.setCompany(routeTransportsResult.getString("Company"));
-				transport.setPrice(routeTransportsResult.getDouble("Price"));
-				transport.setType(routeTransportsResult.getString("Type"));
-				routeTransportsArray.add(transport);
+				routeTransportsArray.add(transportFactory.mapNewResult(routeTransportsResult));
 			}
 			
 			route.setTransports(routeTransportsArray);
@@ -89,13 +83,20 @@ public class RouteDAO {
 
 			route.setHotels(routeHotelsArray);
 
+			connection.close();
 
 			return route;
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return new Route();
+			return null;
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+			return null;
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+			return null;
 		}
 
 	}

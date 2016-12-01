@@ -22,21 +22,6 @@
 
     <link href="<%= request.getContextPath() %>/ListaDeCidades.css"/>
 
-    <script type="text/javascript">
-        function checkBoxValidation() {
-
-            var anyChecked = false;
-            for (var i = 0; i < document.form1.city.length; i++) {
-                if (document.form1.city[i].checked) {
-                    anyChecked = true;
-                }
-            }
-            if (!anyChecked) {
-                alert("Por favor, selecione ao menos uma cidade")
-            }
-        }
-    </script>
-
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Lista de Cidades Turísticas</title>
 </head>
@@ -48,8 +33,7 @@
         City originCity = (City) request.getAttribute("cidadeOrigem");
         City destinyCity = (City) request.getAttribute("cidadeDestino");
     %>
-    <form name="form1" method="post" action="<%= request.getContextPath() %>/CityController"
-          onsubmit="checkBoxValidation()">
+    <form name="form1" method="post" action="<%= request.getContextPath() %>/CityController">
         <div class="col-xs-6">
             <h3 class="text-center">Selecione as cidades que deseja visitar</h3>
             <div class="well" style="max-height: 300px;overflow: auto;">

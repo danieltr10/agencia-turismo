@@ -1,26 +1,25 @@
 package br.usp.pcs.mvc.Package.Decorators.Attraction.data;
 
 import br.usp.pcs.mvc.Package.Decorators.Hotel.data.Hotel;
-import br.usp.pcs.mvc.Package.Decorators.Interfaces.IAttraction;
-import br.usp.pcs.mvc.Package.Interfaces.IPackage;
+import br.usp.pcs.mvc.Package.Decorators.Interfaces.Content;
 import br.usp.pcs.mvc.Package.Decorators.Transport.data.Transport;
+import br.usp.pcs.mvc.Package.Interfaces.IPackage;
 
 import java.util.ArrayList;
 import java.util.ListIterator;
 
-public class Attraction implements IAttraction {
+public class Attraction extends Content {
 
     private String Id;
     private String name;
     private Double price;
     private String description;
-    private IPackage content;
 
     public Attraction() {
     }
 
     public Attraction(IPackage content) {
-        this.content = content;
+        super(content);
     }
 
     public String getId() {
@@ -75,6 +74,7 @@ public class Attraction implements IAttraction {
             return attList.listIterator();
         } else {
             attractions.add(this);
+            attractions.previous();
             return attractions;
         }
     }

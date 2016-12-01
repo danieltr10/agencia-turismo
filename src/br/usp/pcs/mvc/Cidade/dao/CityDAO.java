@@ -163,7 +163,7 @@ public class CityDAO{
 
 			while (resultSet.next()) {
 
-				cidades.add(_cityFactory.mapResult(resultSet));
+				cidades.add(_cityFactory.mapNewResult(resultSet));
 
 			}
 

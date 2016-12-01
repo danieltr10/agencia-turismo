@@ -6,9 +6,6 @@ import java.lang.reflect.Field;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- * Created by andreebr on 29/11/16.
- */
 public class Factory<T> {
     private Class<T> _entity;
 
@@ -16,9 +13,13 @@ public class Factory<T> {
         _entity = entity;
     }
 
-    public T mapResult(ResultSet resultSet) throws IllegalAccessException, InstantiationException, SQLException {
+    public T mapNewResult(ResultSet resultSet) throws IllegalAccessException, InstantiationException, SQLException {
         T entity = _entity.newInstance();
 
+        return mapResult(resultSet, entity);
+    }
+
+    public T mapResult(ResultSet resultSet, T entity) throws IllegalAccessException, InstantiationException, SQLException {
         for (Field field : entity.getClass().getDeclaredFields()) {
             field.setAccessible(true);
             if (field.getType().equals(int.class)) {

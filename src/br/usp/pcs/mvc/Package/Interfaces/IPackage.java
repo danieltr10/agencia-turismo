@@ -8,6 +8,9 @@ import java.util.ListIterator;
 
 public interface IPackage {
 
+    int getPackageId();
+    String getPackageName();
+    String getPackageDescription();
     ListIterator<Hotel> getHotels();
     ListIterator<Transport> getTransports();
     ListIterator<Attraction> getAttractions();

@@ -13,8 +13,8 @@ public class TransportMapper {
             transport.setId(resultSet.getInt("ID"));
             transport.setType(resultSet.getString("Type"));
             transport.setCompany(resultSet.getString("Company"));
-            transport.setDestinationCityID(resultSet.getInt("DestinationID"));
-            transport.setOriginCityID(resultSet.getInt("OriginID"));
+            transport.setDestinationID(resultSet.getInt("DestinationID"));
+            transport.setOriginID(resultSet.getInt("OriginID"));
             transport.setPrice(resultSet.getDouble("Price"));
         }
         catch (Exception e) {
