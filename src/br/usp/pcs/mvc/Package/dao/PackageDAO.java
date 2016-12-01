@@ -178,4 +178,21 @@ public class PackageDAO {
         }
     }
 
+    public boolean isHotTopic(int packageID) throws SQLException {
+            Connection connection = createConnection();
+            Statement statement = connection.createStatement();
+
+            ResultSet resultSet = statement.executeQuery("SELECT COUNT(PACKAGEID) AS QTD_PACKAGES FROM VendaPacote WHERE PACKAGEID = " + packageID);
+
+            resultSet.next();
+
+            if (resultSet.getInt("QTD_PACKAGES") > 14) {
+                return true;
+            }
+
+            return false;
+
+
+    }
+
 }

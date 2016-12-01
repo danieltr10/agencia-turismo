@@ -21,6 +21,7 @@
     ListIterator<Transport> transports = pacote.getTransports();
     ListIterator<Hotel> hotels = pacote.getHotels();
     ListIterator<Attraction> attractions = pacote.getAttractions();
+    boolean isHotTopic = (boolean) request.getAttribute("isHotTopic");
     session.setAttribute("packageID", pacote.getPackageId());
 %>
 
@@ -28,7 +29,7 @@
 
     <div class="container">
         <div class="jumbtron">
-            <h2 align="center">Resumo do Roteiro</h2>
+            <h2 align="center">Resumo do Pacote</h2>
             <br>
             <table class="table table-bordered">
                 <thead>
@@ -59,7 +60,7 @@
                 <tr class="success">
                     <td colspan="2"><%= hotel.getName()%>
                     </td>
-                    <td>R$ <%= hotel.getPrice()%>
+                    <td>R$ <%= hotel.getPrice() + hotel.getPrice()*0.1*(isHotTopic ? 1 : 0) %>
                     </td>
                 </tr>
 
@@ -82,7 +83,7 @@
                     </td>
                     <td><%= transport.getType()%>
                     </td>
-                    <td>R$ <%= transport.getPrice()%>
+                    <td>R$ <%= transport.getPrice() + transport.getPrice()*0.1*(isHotTopic ? 1 : 0)%>
                     </td>
                 </tr>
 
@@ -106,7 +107,7 @@
                     </td>
                     <td><%= attraction.getDescription()%>
                     </td>
-                    <td>R$ <%= attraction.getPrice()%>
+                    <td>R$ <%= attraction.getPrice() + attraction.getPrice()*0.1*(isHotTopic ? 1 : 0)%>
                     </td>
                 </tr>
 
@@ -118,7 +119,7 @@
                     <td colspan=2>
                         Valor Total do Pacote:
                     </td>
-                    <td>R$ <%= pacote.getTotalPrice()%>
+                    <td>R$ <%= pacote.getTotalPrice() + pacote.getTotalPrice()*0.1*(isHotTopic ? 1 : 0)%>
                     </td>
                 </tr>
                 </tbody>

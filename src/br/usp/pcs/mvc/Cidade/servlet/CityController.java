@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
@@ -71,16 +72,20 @@ public class CityController extends HttpServlet {
 
         } else if (pageRequested.equals("FecharPedido")) {
 
-            fecharPedido(request, response);
+            try {
+                fecharPedido(request, response);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
 
         } else if (pageRequested.equals("SelecionarCliente")) {
 
             selecionarCliente(request, response);
 
         } else if (pageRequested.equals("ConcluirVendaPacote")) {
-            
+
             concluirVendaPacote(request, response);
-            
+
         }
 
     }
@@ -108,11 +113,16 @@ public class CityController extends HttpServlet {
         requestDispatcher.forward(request, response);
     }
 
-    private void fecharPedido(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void fecharPedido(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         PackageDAO packageDAO = PackageDAO.getInstance();
 
         IPackage pacote = packageDAO.getPackageById(Integer.parseInt(request.getParameter("package")));
         request.setAttribute("package", pacote);
+
+        boolean isHotTopic = packageDAO.isHotTopic(pacote.getPackageId());
+
+        request.setAttribute("isHotTopic", isHotTopic);
+
 
         RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/FecharPedido.jsp");
         requestDispatcher.forward(request, response);
