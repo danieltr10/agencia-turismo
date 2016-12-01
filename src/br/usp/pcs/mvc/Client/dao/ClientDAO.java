@@ -37,7 +37,7 @@ public class ClientDAO {
             Connection connection = createConnection();
             Statement statement = connection.createStatement();
 
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM Client WHERE Client.TYPE = 1");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM Pessoa WHERE Pessoa.TYPE = 1");
 
             ArrayList<Client> clients = new ArrayList<>();
 

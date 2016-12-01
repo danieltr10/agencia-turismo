@@ -76,7 +76,17 @@ public class CityController extends HttpServlet {
 
             selecionarCliente(request, response);
 
+        } else if (pageRequested.equals("ConcluiVendaPacote")) {
+            
+            concluirVendaPacote(request, response);
+            
         }
+
+    }
+
+    private void concluirVendaPacote(HttpServletRequest request, HttpServletResponse response) {
+
+
 
     }
 
