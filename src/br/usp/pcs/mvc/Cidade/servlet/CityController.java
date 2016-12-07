@@ -89,7 +89,7 @@ public class CityController extends HttpServlet {
         } else if (pageRequested.equals("CadastrarCidade")) {
             CityDAO cityDAO = CityDAO.getInstance();
 
-            ArrayList<City> allCities = cityDAO.getAll();
+            List<City> allCities = cityDAO.getAllCities();
 
             request.setAttribute("allCities", allCities);
 
@@ -100,13 +100,31 @@ public class CityController extends HttpServlet {
             CityDAO cityDAO = CityDAO.getInstance();
 
 
-
-            cityDAO.insertCity(request.getParameter("name"), request.getParameter("description"),request.getParameter("province"), request.getParameter("country"), Double.parseDouble(request.getParameter("latitude")), Double.parseDouble(request.getParameter("longitude")), request.getParameter("imagemUrl"));
+            cityDAO.insertCity(request.getParameter("name"), request.getParameter("description"), request.getParameter("province"), request.getParameter("country"), Double.parseDouble(request.getParameter("latitude")), Double.parseDouble(request.getParameter("longitude")), request.getParameter("imagemUrl"));
 
             RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/index.jsp");
-            requestDispatcher.forward(request,response);
+            requestDispatcher.forward(request, response);
+
+        } else if (pageRequested.equals("CadastraHotel")) {
+            CityDAO cityDAO = CityDAO.getInstance();
+
+            List<City> allCities = cityDAO.getAllCities();
+
+            request.setAttribute("allCities", allCities);
+
+            RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/CadastrarHoteis.jsp");
+            requestDispatcher.forward(request, response);
+        } else if (pageRequested.equals("RealizaCadastro")) {
+            HotelDAO hotelDAO = HotelDAO.getInstance();
+
+
+            hotelDAO.insertHotel(request.getParameter("name"), Double.parseDouble(request.getParameter("price")), Integer.parseInt(request.getParameter("CityID")));
+
+            RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+            requestDispatcher.forward(request, response);
 
         }
+
 
     }
 
