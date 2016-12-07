@@ -174,7 +174,7 @@ public class CityController extends HttpServlet {
 
 
 
-            cityDAO.insertCity(request.getParameter("name"), Double.parseDouble(request.getParameter("price")), Integer.parseInt(request.getParameter("CityID")));
+            cityDAO.insertCity(request.getParameter("name"), request.getParameter("description"),request.getParameter("province"), request.getParameter("country"), Double.parseDouble(request.getParameter("latitude")), Double.parseDouble(request.getParameter("longitude")), request.getParameter("imagemUrl"));
 
             RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/index.jsp");
             requestDispatcher.forward(request,response);

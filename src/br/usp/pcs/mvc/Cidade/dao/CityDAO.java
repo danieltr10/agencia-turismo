@@ -56,7 +56,19 @@ public class CityDAO{
         }
 
     }
-	
+	public boolean insertCity(String name, String description, String province, String country, double latitude, double longitude, String imagemUrl) {
+		try {
+			Connection connection = createConnection();
+			Statement statement = connection.createStatement();
+
+			statement.executeQuery("INSERT INTO `mdb003`.`City` (`Name`, `Description`, `Province`, `Country`, `Latitude`, `Longitude`, `ImagemURL`) VALUES ('"+ name +"', '"+ description +"', '"+ province +"'', '"+ country+"'', '"+ latitude +"'', '"+ longitude +"'', '"+ imagemUrl +"')");
+
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 	public City getCityById(int id) {
 		
 		try {
