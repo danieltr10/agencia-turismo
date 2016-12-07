@@ -3,6 +3,7 @@
 <%@ page import="java.util.ListIterator" %>
 <%@ page import="br.usp.pcs.mvc.Package.Decorators.Hotel.data.Hotel" %>
 <%@ page import="br.usp.pcs.mvc.Package.Decorators.Attraction.data.Attraction" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -13,6 +14,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
 </head>
 <body>
 
@@ -23,6 +26,7 @@
     ListIterator<Attraction> attractions = pacote.getAttractions();
     boolean isHotTopic = (boolean) request.getAttribute("isHotTopic");
     session.setAttribute("packageID", pacote.getPackageId());
+
 %>
 
 <form method="post" action="<%= request.getContextPath() %>/CityController">
@@ -52,7 +56,7 @@
                 </tr>
 
                 <%
-                    Hotel hotel;
+                    Hotel hotel = null;
                     while (hotels.hasNext()) {
                         hotel = hotels.next();
                 %>
@@ -60,7 +64,7 @@
                 <tr class="success">
                     <td colspan="2"><%= hotel.getName()%>
                     </td>
-                    <td>R$ <%= hotel.getPrice() + hotel.getPrice()*0.1*(isHotTopic ? 1 : 0) %>
+                    <td name="precoHotel">R$<%= hotel.getPrice() + hotel.getPrice() * 0.1 * (isHotTopic ? 1 : 0) %>
                     </td>
                 </tr>
 
@@ -73,7 +77,7 @@
                 </tr>
 
                 <%
-                    Transport transport;
+                    Transport transport = null;
                     while (transports.hasNext()) {
                         transport = transports.next();
                 %>
@@ -83,7 +87,8 @@
                     </td>
                     <td><%= transport.getType()%>
                     </td>
-                    <td>R$ <%= transport.getPrice() + transport.getPrice()*0.1*(isHotTopic ? 1 : 0)%>
+                    <td name="precoTransport">
+                        R$<%= transport.getPrice() + transport.getPrice() * 0.1 * (isHotTopic ? 1 : 0)%>
                     </td>
                 </tr>
 
@@ -97,7 +102,7 @@
                 </tr>
 
                 <%
-                    Attraction attraction;
+                    Attraction attraction = null;
                     while (attractions.hasNext()) {
                         attraction = attractions.next();
                 %>
@@ -107,28 +112,76 @@
                     </td>
                     <td><%= attraction.getDescription()%>
                     </td>
-                    <td>R$ <%= attraction.getPrice() + attraction.getPrice()*0.1*(isHotTopic ? 1 : 0)%>
+                    <td name="precoAttraction">
+                        R$<%= attraction.getPrice() + attraction.getPrice() * 0.1 * (isHotTopic ? 1 : 0)%>
                     </td>
                 </tr>
 
                 <%
                     }
+
+                    Double price = pacote.getTotalPrice() + pacote.getTotalPrice() * 0.1 * (isHotTopic ? 1 : 0);
                 %>
 
                 <tr class="active">
                     <td colspan=2>
                         Valor Total do Pacote:
                     </td>
-                    <td>R$ <%= pacote.getTotalPrice() + pacote.getTotalPrice()*0.1*(isHotTopic ? 1 : 0)%>
+                    <td id="custo">
+                        R$<%= price%>
                     </td>
                 </tr>
                 </tbody>
             </table>
         </div>
 
+        <div>
+            <div class="form-group">
+                <label for="id-input">Número de pessoas:</label>
+                <input type="number" min="1" class="form-control" id="id-input" name="nPessoas" value="1"
+                       onchange="setTotalPrice(document.getElementById('id-input').value)">
+            </div>
+        </div>
+
+
         <input type="hidden" name="packageID" value="<%= pacote.getPackageId()%>"/>
         <input type="hidden" name="page" value="SelecionarCliente"/>
         <button type="submit" class="btn btn-primary btn-block">Continuar</button>
+
+        <script
+                type="text/javascript">
+            function setTotalPrice(qtdPessoas) {
+
+                document.getElementById("custo").innerHTML = "R$" + qtdPessoas *<%= (pacote.getTotalPrice() + pacote.getTotalPrice()*0.1*(isHotTopic ? 1 : 0))%>;
+
+                var attractionsTag = document.getElementsByName("precoAttraction");
+                var hotelsTag = document.getElementsByName("precoHotel");
+                var transportTag = document.getElementsByName("precoTransport");
+
+                if (qtdPessoas > 1) {
+                    for (var i = 0; i < attractionsTag.length; i++) {
+                        attractionsTag[i].innerHTML = qtdPessoas + "x R$" + <%= attraction.getPrice() + attraction.getPrice()*0.1*(isHotTopic ? 1 : 0)%>;
+                    }
+                    for (i = 0; i < hotelsTag.length; i++) {
+                        hotelsTag[i].innerHTML = qtdPessoas + "x R$" + <%= hotel.getPrice() + hotel.getPrice()*0.1*(isHotTopic ? 1 : 0)%>;
+                    }
+                    for (i = 0; i < transportTag.length; i++) {
+                        transportTag[i].innerHTML = qtdPessoas + "x R$" + <%= transport.getPrice() + transport.getPrice()*0.1*(isHotTopic ? 1 : 0)%>
+                    }
+                } else {
+                    for (var i = 0; i < attractionsTag.length; i++) {
+                        attractionsTag[i].innerHTML = "R$" + <%= attraction.getPrice() + attraction.getPrice() * 0.1 * (isHotTopic ? 1 : 0)%>;
+                    }
+                    for (i = 0; i < hotelsTag.length; i++) {
+                        hotelsTag[i].innerHTML = "R$" + <%= hotel.getPrice() + hotel.getPrice()*0.1*(isHotTopic ? 1 : 0)%>;
+                    }
+                    for (i = 0; i < transportTag.length; i++) {
+                        transportTag[i].innerHTML = "R$" + <%= transport.getPrice() + transport.getPrice()*0.1*(isHotTopic ? 1 : 0)%>
+                    }
+                }
+                return true;
+            }
+        </script>
 
     </div>
 </form>

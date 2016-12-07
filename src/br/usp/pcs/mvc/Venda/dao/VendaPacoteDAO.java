@@ -32,14 +32,18 @@ public class VendaPacoteDAO {
     }
 
     public boolean insertVendaPacote(int CPF, int packageID) {
+        return insertVendaPacote(CPF, packageID, 1);
+    }
+
+    public boolean insertVendaPacote(int CPF, int packageID, int numeroPessoas) {
         try {
 
             Connection connection = createConnection();
             Statement statement = connection.createStatement();
 
             statement.executeQuery("INSERT INTO VendaPacote " +
-                    "(CLIENTCPF, PACKAGEID) " +
-                    "VALUES ("+ CPF +", "+ packageID +")");
+                    "(CLIENTCPF, PACKAGEID, NUMEROPESSOAS) " +
+                    "VALUES ("+ CPF +", "+ packageID +", " + numeroPessoas + ")");
 
             return true;
 

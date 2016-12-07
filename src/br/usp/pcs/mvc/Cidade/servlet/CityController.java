@@ -96,8 +96,9 @@ public class CityController extends HttpServlet {
 
         int packageID = Integer.parseInt(request.getParameter("packageID"));
         int cpf = Integer.parseInt(request.getParameter("cpf"));
+        int numeroPessoas = Integer.parseInt(request.getParameter("nPessoas"));
 
-        vendaPacoteDAO.insertVendaPacote(cpf, packageID);
+        boolean success = vendaPacoteDAO.insertVendaPacote(cpf, packageID, numeroPessoas);
 
         RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/index.jsp");
         requestDispatcher.forward(request, response);
@@ -108,6 +109,9 @@ public class CityController extends HttpServlet {
 
         List<Client> clients = clientDAO.getAllClients();
         request.setAttribute("clients", clients);
+
+        int numeroPessoas = Integer.parseInt(request.getParameter("nPessoas"));
+        request.setAttribute("nPessoas", numeroPessoas);
 
         RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/VincularPacoteCliente.jsp");
         requestDispatcher.forward(request, response);

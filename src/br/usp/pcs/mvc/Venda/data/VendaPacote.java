@@ -6,10 +6,16 @@ import br.usp.pcs.mvc.Package.Interfaces.IPackage;
 public class VendaPacote {
     private Client client;
     private IPackage pacote;
+    private int qtdPessoas;
 
-    public VendaPacote(Client client, IPackage pacote) {
+    public VendaPacote(Client client, int qtdPessoas, IPackage pacote) {
         this.client = client;
         this.pacote = pacote;
+        this.qtdPessoas = qtdPessoas;
+    }
+
+    public int getQtdPessoas() {
+        return qtdPessoas;
     }
 
     public Client getClient() {
