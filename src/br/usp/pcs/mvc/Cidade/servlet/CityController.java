@@ -145,7 +145,20 @@ public class CityController extends HttpServlet {
 
             RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/CadastrarHoteis.jsp");
             requestDispatcher.forward(request, response);
-        } else if (pageRequested.equals("RealizaCadastro")) {
+
+        } else if (pageRequested.equals("CadastrarCidade")) {
+            CityDAO cityDAO = CityDAO.getInstance();
+
+            ArrayList<City> allCities = cityDAO.getAll();
+
+            request.setAttribute("allCities", allCities);
+
+            RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/CadastrarCidade.jsp");
+            requestDispatcher.forward(request, response);
+
+        }
+
+        else if (pageRequested.equals("RealizaCadastro")) {
             HotelDAO hotelDAO = HotelDAO.getInstance();
 
 
@@ -156,7 +169,17 @@ public class CityController extends HttpServlet {
             requestDispatcher.forward(request,response);
 
         }
+        else if (pageRequested.equals("RealizaCadastroCidade")) {
+            CityDAO cityDAO = CityDAO.getInstance();
 
+
+
+            cityDAO.insertCity(request.getParameter("name"), Double.parseDouble(request.getParameter("price")), Integer.parseInt(request.getParameter("CityID")));
+
+            RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+            requestDispatcher.forward(request,response);
+
+        }
     }
 
     /**

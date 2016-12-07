@@ -40,8 +40,10 @@
 
                 <ul class="nav navbar-nav">
                     <li>
-
                         <a href="<%= request.getContextPath() %>/CityController?page=CadastraHotel">Cadastrar Hotel</a>
+                    </li>
+                    <li>
+                        <a href="<%= request.getContextPath() %>/CityController?page=CadastrarCidade">Cadastrar Cidades</a>
                     </li>
                 </ul>
 
