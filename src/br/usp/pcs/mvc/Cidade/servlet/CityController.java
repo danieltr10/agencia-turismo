@@ -86,6 +86,26 @@ public class CityController extends HttpServlet {
 
             concluirVendaPacote(request, response);
 
+        } else if (pageRequested.equals("CadastrarCidade")) {
+            CityDAO cityDAO = CityDAO.getInstance();
+
+            ArrayList<City> allCities = cityDAO.getAll();
+
+            request.setAttribute("allCities", allCities);
+
+            RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/CadastrarCidade.jsp");
+            requestDispatcher.forward(request, response);
+
+        } else if (pageRequested.equals("RealizaCadastroCidade")) {
+            CityDAO cityDAO = CityDAO.getInstance();
+
+
+
+            cityDAO.insertCity(request.getParameter("name"), request.getParameter("description"),request.getParameter("province"), request.getParameter("country"), Double.parseDouble(request.getParameter("latitude")), Double.parseDouble(request.getParameter("longitude")), request.getParameter("imagemUrl"));
+
+            RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+            requestDispatcher.forward(request,response);
+
         }
 
     }

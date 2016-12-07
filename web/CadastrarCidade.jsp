@@ -53,7 +53,7 @@
         <label for="url-input">URL da Imagem</label>
         <input type="url" class="form-control" id="url-input" name="url">
     </div>
-
+    <input type="hidden" name="page" value="RealizaCadastroCidade"/>
     <button type="submit" class="btn btn-primary">Cadastrar</button>
 </div>
 </body>
