@@ -129,6 +129,43 @@ public class CityController extends HttpServlet {
             requestDispatcher.forward(request, response);
 
         }
+        else if (pageRequested.equals("CadastrarTransportes")) {
+            TransportDAO transportDAO = TransportDAO.getInstance();
+
+            List<Transport> allTransports = transportDAO.getAllTransports();
+
+            request.setAttribute("allTransports", allTransports);
+
+            RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/CadastrarTransporte.jsp");
+            requestDispatcher.forward(request, response);
+        }else if (pageRequested.equals("RealizaCadastroTransporte")) {
+            TransportDAO transportDAO = TransportDAO.getInstance();
+
+
+            transportDAO.insertTransport(request.getParameter("tipo"), request.getParameter("company"), Double.parseDouble(request.getParameter("price")), Integer.parseInt(request.getParameter("originid")), Integer.parseInt(request.getParameter("destinationid")));
+
+            RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+            requestDispatcher.forward(request, response);
+
+        }else if (pageRequested.equals("CadastrarClientes")) {
+            ClientDAO clientDAO = ClientDAO.getInstance();
+
+            List<Client> allClients = clientDAO.getAllClients();
+
+            request.setAttribute("allClients", allClients);
+
+            RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/CadastrarCliente.jsp");
+            requestDispatcher.forward(request, response);
+        }else if (pageRequested.equals("RealizaCadastroCliente")) {
+            ClientDAO clientDAO = ClientDAO.getInstance();
+
+
+            clientDAO.insertClient(request.getParameter("name"), Integer.parseInt(request.getParameter("cpf")), Integer.parseInt(request.getParameter("telefone")), Integer.parseInt(request.getParameter("id")));
+
+            RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+            requestDispatcher.forward(request, response);
+
+        }
 
 
     }
