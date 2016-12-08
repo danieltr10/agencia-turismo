@@ -155,6 +155,7 @@
         </div>
 
 
+        <input type="hidden" name="product" value="pacote"/>
         <input type="hidden" name="packageID" value="<%= pacote.getPackageId()%>"/>
         <input type="hidden" name="page" value="SelecionarCliente"/>
         <%-- Region Daniel --%>
@@ -162,7 +163,7 @@
 
         <label for="paymentType">Selecione uma forma de pagamento:</label>
         <select class="form-control" id="paymentType" name="payment" onchange="treatPayment()">
-            <option value="Cartão de Crédito">
+            <option value="Cartao de Credito">
                 Cartão de Crédito
             </option>
             <option value="Dinheiro">

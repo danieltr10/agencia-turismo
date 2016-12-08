@@ -39,6 +39,7 @@
             </select>
             <br>
 
+            <input type="hidden" name="produto" value="<%= request.getAttribute("produto") %>"/>
             <input type="hidden" name="nPessoas" value="<%= request.getAttribute("nPessoas")%>">
             <input type="hidden" name="packageID" value="<%= session.getAttribute("packageID")%>">
             <input type="hidden" name="page" value="ConcluirVendaPacote"/>

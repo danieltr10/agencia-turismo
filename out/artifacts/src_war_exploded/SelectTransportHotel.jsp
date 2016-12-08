@@ -27,6 +27,8 @@
     ArrayList<Hotel> hotelsPerCity;
     ArrayList<Transport> transportsBetweenCities;
  %>
+
+<form method="post" action="<%= request.getContextPath() %>/CityController">
 <div class="container" style="outline: hidden">
     <h2>Seleção de Transportes e Hoteis</h2>
 
@@ -34,6 +36,7 @@
     <div>
         <div class="jumbotron">
 
+            <input type="hidden" name="Cidade" value="<%= cidades.get(i).getId() %>">
             <div class="media">
                 <div class="media-left">
                     <img class="media-object img-rounded"
@@ -54,7 +57,7 @@
                 hotelsPerCity = hotels.get(i);
                 for (int j = 0; j < hotelsPerCity.size(); j++) {
             %>
-                <option value="<%=hotelsPerCity.get(j).getPrice()%>">
+                <option value="<%= hotelsPerCity.get(j).getId()%>">
                     <%= hotelsPerCity.get(j).getName() %>
                 </option>
             <%
@@ -62,7 +65,7 @@
             %>
             </select>
 
-            <p id="<%="custo" + cidades.get(i).getId()%>">Custo: R$ <%=hotelsPerCity.get(0) != null ? hotelsPerCity.get(0).getPrice() : "0"%> </p>
+            <p id="<%="custo" + cidades.get(i).getId()%>">Custo: R$ <%=hotelsPerCity.size() > 0 ? hotelsPerCity.get(0).getPrice() : "0"%> </p>
 
         </div>
         <label for="sel2">Transporte</label>
@@ -71,7 +74,7 @@
                 transportsBetweenCities = transports.get(i);
                 for (int j = 0; j < transportsBetweenCities.size(); j++) {
             %>
-            <option value="Transport">
+            <option value="<%= transportsBetweenCities.get(j).getId()%>">
                 <%= transportsBetweenCities.get(j).getCompany() + " - " + transportsBetweenCities.get(j).getType() + ": R$" + transportsBetweenCities.get(j).getPrice()%>
             </option>
             <%
@@ -83,7 +86,9 @@
     <%
         }
     %>
+    <input type="hidden" name="page" value="ResumoRoteiro"/>
+    <button type="submit" class="btn btn-primary btn-block">Continuar</button>
 </div>
-
+</form>
 </body>
 </html>

@@ -69,7 +69,7 @@
                     style="width: 280px; height: 50px; margin-right: 40px">Criar Roteiro
             </button>
             <button name="comprarPacote" class="btn btn-primary col-xs-12" style="width: 280px; height: 50px">Comprar
-                Roteiro
+                Pacote
             </button>
         </div>
     </div>

@@ -39,7 +39,7 @@ public class VendaPacoteDAO {
 
             statement.executeQuery("INSERT INTO VendaPacote " +
                     "(CLIENTCPF, PACKAGEID, PAYMENT, NUMEROPESSOAS) " +
-                    "VALUES ("+ CPF +", "+ packageID +", "+ paymentType +", "+ numeroPessoas+")");
+                    "VALUES ("+ CPF +", "+ packageID +", '"+ paymentType +"' , "+ numeroPessoas+")");
 
             return true;
 

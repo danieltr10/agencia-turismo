@@ -128,4 +128,22 @@ public class RouteDAO {
         }
     }
 
+	public boolean insertVendaRoteiro(int CPF) {
+		try {
+
+			Connection connection = createConnection();
+			Statement statement = connection.createStatement();
+
+			statement.executeQuery("INSERT INTO VendaRoute " +
+					"(ROUTEID, CLIENTCPF) " +
+					"VALUES (1, "+ CPF + ")");
+
+			return true;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
 }

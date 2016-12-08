@@ -51,7 +51,7 @@ public class HotelDAO {
 			Connection connection = createConnection();
 			Statement statement = connection.createStatement();
 
-			ResultSet resultSet = statement.executeQuery("SELECT * FROM Transport WHERE ID = " + id);
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM Hotel WHERE ID = " + id);
 			resultSet.next();
 
 			HotelMapper hotelMapper = new HotelMapper();
@@ -93,4 +93,22 @@ public class HotelDAO {
 		}
 
 	}
+
+	public void incrementHotelSales(int id) {
+
+		try {
+
+			Connection connection = createConnection();
+			Statement statement = connection.createStatement();
+
+			ResultSet resultSet = statement.executeQuery("UPDATE Hotel SET NUMEROVENDAS = NUMEROVENDAS + 1 WHERE ID = " + id);
+			resultSet.next();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
 }

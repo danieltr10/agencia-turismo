@@ -73,4 +73,21 @@ public class TransportDAO {
 
 	}
 
+	public void incrementTransportSales(int id) {
+
+		try {
+
+			Connection connection = createConnection();
+			Statement statement = connection.createStatement();
+
+			ResultSet resultSet = statement.executeQuery("UPDATE Transport SET NUMEROVENDAS = NUMEROVENDAS + 1 WHERE ID = " + id);
+			resultSet.next();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
 }

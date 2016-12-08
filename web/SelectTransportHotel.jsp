@@ -62,7 +62,7 @@
             %>
             </select>
 
-            <p id="<%="custo" + cidades.get(i).getId()%>">Custo: R$ <%=hotelsPerCity.get(0) != null ? hotelsPerCity.get(0).getPrice() : "0"%> </p>
+            <p id="<%="custo" + cidades.get(i).getId()%>">Custo: R$ <%=hotelsPerCity.size() > 0 ? hotelsPerCity.get(0).getPrice() : "0"%> </p>
 
         </div>
         <label for="sel2">Transporte</label>

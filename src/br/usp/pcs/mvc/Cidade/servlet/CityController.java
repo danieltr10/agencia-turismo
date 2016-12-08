@@ -82,7 +82,12 @@ public class CityController extends HttpServlet {
 
             selecionarCliente(request, response);
 
-        } else if (pageRequested.equals("ConcluirVendaPacote")) {
+        } else if (pageRequested.equals("ResumoRoteiro")) {
+
+            resumoRoteiro(request, response);
+
+        }
+        else if (pageRequested.equals("ConcluirVendaPacote")) {
 
             concluirVendaPacote(request, response);
 
@@ -130,15 +135,22 @@ public class CityController extends HttpServlet {
 
     private void concluirVendaPacote(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        VendaPacoteDAO vendaPacoteDAO = VendaPacoteDAO.getInstance();
+        if (request.getParameter("produto").equals("roteiro")) {
+            RouteDAO routeDAO = RouteDAO.getInstance();
+            routeDAO.insertVendaRoteiro(232323);
+        } else {
+            try {
+                VendaPacoteDAO vendaPacoteDAO = VendaPacoteDAO.getInstance();
+                int packageID = Integer.parseInt(request.getParameter("packageID"));
+                int cpf = Integer.parseInt(request.getParameter("cpf"));
+                String paymentType = request.getParameter("payment");
 
-        int packageID = Integer.parseInt(request.getParameter("packageID"));
-        int cpf = Integer.parseInt(request.getParameter("cpf"));
-        String paymentType = request.getParameter("payment");
+                int numeroPessoas = Integer.parseInt(request.getParameter("nPessoas"));
+                vendaPacoteDAO.insertVendaPacote(cpf, packageID, paymentType, numeroPessoas);
+            } catch (NullPointerException e) {
 
-        int numeroPessoas = Integer.parseInt(request.getParameter("nPessoas"));
-        boolean success = vendaPacoteDAO.insertVendaPacote(cpf, packageID, paymentType, numeroPessoas);
-
+            }
+        }
         RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/index.jsp");
         requestDispatcher.forward(request, response);
     }
@@ -154,7 +166,46 @@ public class CityController extends HttpServlet {
         int numeroPessoas = Integer.parseInt(request.getParameter("nPessoas"));
         request.setAttribute("nPessoas", numeroPessoas);
 
+        request.setAttribute("produto", request.getParameter("produto"));
+
         RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/VincularPacoteCliente.jsp");
+        requestDispatcher.forward(request, response);
+    }
+
+    private void resumoRoteiro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        Route rota = new Route();
+
+        CityDAO cityDAO = CityDAO.getInstance();
+        HotelDAO hotelDAO = HotelDAO.getInstance();
+        TransportDAO transportDAO = TransportDAO.getInstance();
+
+        String[] cities = request.getParameterValues("Cidade");
+        String[] hotels = request.getParameterValues("Hotel");
+        String[] transports = request.getParameterValues("Transporte");
+        ArrayList<City> chosenCities = new ArrayList<>();
+        ArrayList<Hotel> chosenHotels = new ArrayList<>();
+        ArrayList<Transport> chosenTransports = new ArrayList<>();
+
+        for (String cityId : cities) {
+            chosenCities.add(cityDAO.getCityById(Integer.valueOf(cityId)));
+        }
+
+        for (String hotelId : hotels) {
+            chosenHotels.add(hotelDAO.getHotelById(Integer.valueOf(hotelId)));
+        }
+
+        for (String transportId : transports) {
+            chosenTransports.add(transportDAO.getTransportById(Integer.valueOf(transportId)));
+        }
+
+        rota.setTransports(chosenTransports);
+        rota.setHotels(chosenHotels);
+        rota.setCities(chosenCities);
+
+        request.setAttribute("rota", rota);
+
+        RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/ResumoRoteiro.jsp");
         requestDispatcher.forward(request, response);
     }
 
