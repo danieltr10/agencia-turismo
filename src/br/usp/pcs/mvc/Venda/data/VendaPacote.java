@@ -8,6 +8,10 @@ public class VendaPacote {
     private IPackage pacote;
     private int qtdPessoas;
 
+    public VendaPacote(IPackage pacote) {
+        this.pacote = pacote;
+    }
+
     public VendaPacote(Client client, int qtdPessoas, IPackage pacote) {
         this.client = client;
         this.pacote = pacote;

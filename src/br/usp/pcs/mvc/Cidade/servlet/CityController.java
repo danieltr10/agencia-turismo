@@ -9,6 +9,7 @@ import br.usp.pcs.mvc.Package.Decorators.Hotel.data.Hotel;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,16 +18,13 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 
 import br.usp.pcs.mvc.Package.Interfaces.IPackage;
 import br.usp.pcs.mvc.Package.dao.PackageDAO;
-import br.usp.pcs.mvc.Package.data.Package;
-import br.usp.pcs.mvc.Route.dao.RouteDAO;
-import br.usp.pcs.mvc.Route.data.Route;
 import br.usp.pcs.mvc.Package.Decorators.Transport.dao.TransportDAO;
 import br.usp.pcs.mvc.Package.Decorators.Transport.data.Transport;
 import br.usp.pcs.mvc.Venda.dao.VendaPacoteDAO;
+import br.usp.pcs.mvc.Venda.data.VendaPacote;
 
 /**
  * Servlet implementation class CidadeController
@@ -165,9 +163,35 @@ public class CityController extends HttpServlet {
             RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/index.jsp");
             requestDispatcher.forward(request, response);
 
+        } else if (pageRequested.equals("RelatorioGerencial")) {
+
+            RelatorioGerencial(request, response);
+
+        } else if (pageRequested.equals("RelatorioLocais")) {
+            RelatorioLocais(request, response);
         }
 
 
+    }
+
+    private void RelatorioLocais(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+
+        RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/RelatorioLocaisVisitados.jsp");
+        requestDispatcher.forward(request, response);
+    }
+
+    private void RelatorioGerencial(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        VendaPacoteDAO vendaPacoteDAO = VendaPacoteDAO.getInstance();
+
+        List<VendaPacote> vendasPacote = vendaPacoteDAO.getAllVendasPacote();
+
+        request.setAttribute("vendasPacote", vendasPacote);
+
+
+
+        RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/RelatorioGerencial.jsp");
+        requestDispatcher.forward(request, response);
     }
 
     private void concluirVendaPacote(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

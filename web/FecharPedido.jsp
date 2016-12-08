@@ -3,7 +3,6 @@
 <%@ page import="java.util.ListIterator" %>
 <%@ page import="br.usp.pcs.mvc.Package.Decorators.Hotel.data.Hotel" %>
 <%@ page import="br.usp.pcs.mvc.Package.Decorators.Attraction.data.Attraction" %>
-<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
