@@ -12,13 +12,9 @@
 
 </head>
 <body>
+<form name="form1" method="post" action="<%= request.getContextPath() %>/CityController"
 <div class="container">
     <h1>Cadastrar Cidade</h1>
-
-    <div class="form-group">
-        <label for="id-input">ID</label>
-        <input type="number" class="form-control" id="id-input" name="id">
-    </div>
 
     <div class="form-group">
         <label for="name-input">Name</label>
@@ -56,5 +52,6 @@
     <input type="hidden" name="page" value="RealizaCadastroCidade"/>
     <button type="submit" class="btn btn-primary">Cadastrar</button>
 </div>
+</form>
 </body>
 </html>
