@@ -31,6 +31,20 @@ public class ClientDAO {
         return instance;
     }
 
+    public boolean insertClient(String name,int cpf,int telefone, int id) {
+        try {
+            Connection connection = createConnection();
+            Statement statement = connection.createStatement();
+
+            statement.executeQuery("INSERT INTO `mdb003`.`Pessoa` (`Name`, `Cpf`, `Telefone`, `Type`) VALUES ('"+ name +"' , '"+ cpf +"', ' "+ telefone +"', '"+ id+"')");
+
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public List<Client> getAllClients() {
         try {
 

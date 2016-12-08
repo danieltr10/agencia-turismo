@@ -45,6 +45,12 @@
                     <li>
                         <a href="<%= request.getContextPath() %>/CityController?page=CadastrarCidade">Cadastrar Cidades</a>
                     </li>
+                    <li>
+                        <a href="<%= request.getContextPath() %>/CityController?page=CadastrarTransportes">Cadastrar Transporte</a>
+                    </li>
+                    <li>
+                        <a href="<%= request.getContextPath() %>/CityController?page=CadastrarClientes">Cadastrar Pessoa</a>
+                    </li>
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
