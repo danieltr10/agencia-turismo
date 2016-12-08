@@ -18,11 +18,14 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 import br.usp.pcs.mvc.Package.Interfaces.IPackage;
 import br.usp.pcs.mvc.Package.dao.PackageDAO;
 import br.usp.pcs.mvc.Package.Decorators.Transport.dao.TransportDAO;
 import br.usp.pcs.mvc.Package.Decorators.Transport.data.Transport;
+import br.usp.pcs.mvc.Route.dao.RouteDAO;
+import br.usp.pcs.mvc.Route.data.Route;
 import br.usp.pcs.mvc.Venda.dao.VendaPacoteDAO;
 import br.usp.pcs.mvc.Venda.data.VendaPacote;
 
@@ -32,7 +35,6 @@ import br.usp.pcs.mvc.Venda.data.VendaPacote;
 @WebServlet("/")
 public class CityController extends HttpServlet {
     private static final long serialVersionUID = 1L;
-
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -260,6 +262,13 @@ public class CityController extends HttpServlet {
             chosenTransports.add(transportDAO.getTransportById(Integer.valueOf(transportId)));
         }
 
+        for (Transport transport : chosenTransports) {
+            transportDAO.incrementTransportSales(transport.getId());
+        }
+        for (Hotel hotel : chosenHotels) {
+            hotelDAO.incrementHotelSales(hotel.getId());
+        }
+
         rota.setTransports(chosenTransports);
         rota.setHotels(chosenHotels);
         rota.setCities(chosenCities);
@@ -272,9 +281,16 @@ public class CityController extends HttpServlet {
 
     private void fecharPedido(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         PackageDAO packageDAO = PackageDAO.getInstance();
+        HotelDAO hotelDAO = HotelDAO.getInstance();
 
         IPackage pacote = packageDAO.getPackageById(Integer.parseInt(request.getParameter("package")));
         request.setAttribute("package", pacote);
+
+        ListIterator<Hotel> hoteis = pacote.getHotels();
+
+        while (hoteis.hasNext()) {
+            hotelDAO.getHoteisByCityId(hoteis.next().getId());
+        }
 
         boolean isHotTopic = packageDAO.isHotTopic(pacote.getPackageId());
 
