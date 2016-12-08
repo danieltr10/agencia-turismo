@@ -136,9 +136,8 @@ public class CityController extends HttpServlet {
         int cpf = Integer.parseInt(request.getParameter("cpf"));
         String paymentType = request.getParameter("payment");
 
-        vendaPacoteDAO.insertVendaPacote(cpf, packageID, paymentType, numeroPessoas);
         int numeroPessoas = Integer.parseInt(request.getParameter("nPessoas"));
-        boolean success = vendaPacoteDAO.insertVendaPacote(cpf, packageID, numeroPessoas);
+        boolean success = vendaPacoteDAO.insertVendaPacote(cpf, packageID, paymentType, numeroPessoas);
 
         RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/index.jsp");
         requestDispatcher.forward(request, response);
