@@ -137,7 +137,7 @@ public class CityController extends HttpServlet {
 
         if (request.getParameter("produto").equals("roteiro")) {
             RouteDAO routeDAO = RouteDAO.getInstance();
-            routeDAO.insertVendaRoteiro(232323);
+            routeDAO.insertVendaRoteiro(Integer.parseInt(request.getParameter("cpf")));
         } else {
             try {
                 VendaPacoteDAO vendaPacoteDAO = VendaPacoteDAO.getInstance();
