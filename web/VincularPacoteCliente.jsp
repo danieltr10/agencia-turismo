@@ -14,6 +14,7 @@
 
 <form method="post" action="<%= request.getContextPath() %>/CityController">
 
+    <input type="hidden" name="payment" value="<%= request.getParameter("payment") %>">
     <div class="container">
 
         <div class="jumbotron">

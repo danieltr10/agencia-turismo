@@ -31,15 +31,15 @@ public class VendaPacoteDAO {
         return instance;
     }
 
-    public boolean insertVendaPacote(int CPF, int packageID) {
+    public boolean insertVendaPacote(int CPF, int packageID, String paymentType, int numeroPessoas) {
         try {
 
             Connection connection = createConnection();
             Statement statement = connection.createStatement();
 
             statement.executeQuery("INSERT INTO VendaPacote " +
-                    "(CLIENTCPF, PACKAGEID) " +
-                    "VALUES ("+ CPF +", "+ packageID +")");
+                    "(CLIENTCPF, PACKAGEID, PAYMENT, NUMEROPESSOAS) " +
+                    "VALUES ("+ CPF +", "+ packageID +", "+ paymentType +", "+ numeroPessoas+")");
 
             return true;
 

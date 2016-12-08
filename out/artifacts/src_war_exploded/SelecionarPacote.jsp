@@ -1,6 +1,7 @@
 <%@ page import="br.usp.pcs.mvc.Route.data.Route" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.ArrayList" %><%--
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="br.usp.pcs.mvc.Package.Interfaces.IPackage" %><%--
   Created by IntelliJ IDEA.
   User: Daniel
   Date: 24/11/16
@@ -23,30 +24,32 @@
 
     <div class="container">
 
-        <h1 style="text-align: center">Comprar Pacote</h1>
+        <div class="jumbotron">
 
-        <br>
+            <h1 style="text-align: center">Comprar Pacote</h1>
 
-        <label for="sel1">Selecione um pacote:</label>
-        <select class="form-control" id="sel1" name="rota">
-            <%
-                ArrayList<Route> rotas = (ArrayList<Route>) request.getAttribute("listaRotas");
+            <br>
 
-                for (int i = 0; i < rotas.size(); i++) {
-            %>
-            <option value="<%=rotas.get(i).getId()%>">
-                <%= rotas.get(i).getName() %>
-            </option>
-            <%
-                }
-            %>
-        </select>
-        <br>
+            <label for="sel1">Selecione um pacote:</label>
+            <select class="form-control" id="sel1" name="package">
+                <%
+                    List<IPackage> packages = (List<IPackage>) request.getAttribute("listaPackages");
+
+                    for (int i = 0; i < packages.size(); i++) {
+                %>
+                <option value="<%=packages.get(i).getPackageId()%>">
+                    <%= packages.get(i).getPackageName() %>
+                </option>
+                <%
+                    }
+                %>
+            </select>
+            <br>
 
 
-        <input type="hidden" name="page" value="FecharPedido"/>
-        <button type="submit" class="btn btn-primary btn-block" >Ver Pacote</button>
-
+            <input type="hidden" name="page" value="FecharPedido"/>
+            <button type="submit" class="btn btn-primary btn-block">Ver Pacote</button>
+        </div>
     </div>
 
 </form>

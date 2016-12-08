@@ -13,6 +13,20 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        function treatPayment() {
+            if (document.getElementById("paymentType").value.localeCompare("Dinheiro")) {
+                document.getElementById("cardField").style.display = 'block';
+            } else {
+                document.getElementById("cardField").style.display = 'none';
+            }
+
+            return true;
+        }
+    </script>
+
+
 </head>
 <body>
 
@@ -128,6 +142,25 @@
 
         <input type="hidden" name="packageID" value="<%= pacote.getPackageId()%>"/>
         <input type="hidden" name="page" value="SelecionarCliente"/>
+        <%-- Region Daniel --%>
+        <br>
+
+        <label for="paymentType">Selecione uma forma de pagamento:</label>
+        <select class="form-control" id="paymentType" name="payment" onchange="treatPayment()">
+            <option value="Cartão de Crédito">
+                Cartão de Crédito
+            </option>
+            <option value="Dinheiro">
+                Dinheiro
+            </option>
+        </select>
+
+        <div id="cardField" style="display:block">
+
+        <input type="number" class="form-control">
+    </div>
+        <br>
+
         <button type="submit" class="btn btn-primary btn-block">Continuar</button>
 
     </div>
