@@ -86,7 +86,45 @@ public class CityController extends HttpServlet {
 
             concluirVendaPacote(request, response);
 
+        } else if (pageRequested.equals("CadastrarCidade")) {
+            CityDAO cityDAO = CityDAO.getInstance();
+
+            List<City> allCities = cityDAO.getAllCities();
+
+            request.setAttribute("allCities", allCities);
+
+            RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/CadastrarCidade.jsp");
+            requestDispatcher.forward(request, response);
+
+        } else if (pageRequested.equals("RealizaCadastroCidade")) {
+            CityDAO cityDAO = CityDAO.getInstance();
+
+
+            cityDAO.insertCity(request.getParameter("name"), request.getParameter("description"), request.getParameter("province"), request.getParameter("country"), Double.parseDouble(request.getParameter("latitude")), Double.parseDouble(request.getParameter("longitude")), request.getParameter("url"));
+
+            RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+            requestDispatcher.forward(request, response);
+
+        } else if (pageRequested.equals("CadastraHotel")) {
+            CityDAO cityDAO = CityDAO.getInstance();
+
+            List<City> allCities = cityDAO.getAllCities();
+
+            request.setAttribute("allCities", allCities);
+
+            RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/CadastrarHoteis.jsp");
+            requestDispatcher.forward(request, response);
+        } else if (pageRequested.equals("RealizaCadastro")) {
+            HotelDAO hotelDAO = HotelDAO.getInstance();
+
+
+            hotelDAO.insertHotel(request.getParameter("name"), Double.parseDouble(request.getParameter("price")), Integer.parseInt(request.getParameter("CityID")));
+
+            RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+            requestDispatcher.forward(request, response);
+
         }
+
 
     }
 
@@ -99,6 +137,8 @@ public class CityController extends HttpServlet {
         String paymentType = request.getParameter("payment");
 
         vendaPacoteDAO.insertVendaPacote(cpf, packageID, paymentType, numeroPessoas);
+        int numeroPessoas = Integer.parseInt(request.getParameter("nPessoas"));
+        boolean success = vendaPacoteDAO.insertVendaPacote(cpf, packageID, numeroPessoas);
 
         RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/index.jsp");
         requestDispatcher.forward(request, response);
@@ -112,6 +152,8 @@ public class CityController extends HttpServlet {
 
         String paymentType = request.getParameter("payment");
         request.setAttribute("payment", paymentType);
+        int numeroPessoas = Integer.parseInt(request.getParameter("nPessoas"));
+        request.setAttribute("nPessoas", numeroPessoas);
 
         RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/VincularPacoteCliente.jsp");
         requestDispatcher.forward(request, response);

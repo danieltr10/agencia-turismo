@@ -186,7 +186,7 @@ public class PackageDAO {
 
             resultSet.next();
 
-            if (resultSet.getInt("QTD_PACKAGES") > 14) {
+            if (resultSet.getInt("QTD_PACKAGES") > 15) {
                 return true;
             }
 
