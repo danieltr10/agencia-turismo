@@ -282,15 +282,25 @@ public class CityController extends HttpServlet {
     private void fecharPedido(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         PackageDAO packageDAO = PackageDAO.getInstance();
         HotelDAO hotelDAO = HotelDAO.getInstance();
+        TransportDAO transportDAO = TransportDAO.getInstance();
 
         IPackage pacote = packageDAO.getPackageById(Integer.parseInt(request.getParameter("package")));
         request.setAttribute("package", pacote);
 
+        packageDAO.incrementPackageSales(pacote.getPackageId());
+
         ListIterator<Hotel> hoteis = pacote.getHotels();
+        ListIterator<Transport> transports = pacote.getTransports();
 
         while (hoteis.hasNext()) {
-            hotelDAO.getHoteisByCityId(hoteis.next().getId());
+            hotelDAO.incrementHotelSales(hoteis.next().getId());
         }
+
+        while (transports.hasNext()) {
+            transportDAO.incrementTransportSales(transports.next().getId());
+        }
+
+
 
         boolean isHotTopic = packageDAO.isHotTopic(pacote.getPackageId());
 

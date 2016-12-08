@@ -195,4 +195,22 @@ public class PackageDAO {
 
     }
 
+    public void incrementPackageSales(int id) {
+
+        try {
+
+            Connection connection = createConnection();
+            Statement statement = connection.createStatement();
+
+            ResultSet resultSet = statement.executeQuery("UPDATE Package SET NUMEROVENDAS = NUMEROVENDAS + 1 WHERE ID = " + id);
+            resultSet.next();
+
+            connection.close();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+    }
+
 }
