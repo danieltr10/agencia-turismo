@@ -1,4 +1,5 @@
-<%--
+<%@ page import="java.util.List" %>
+<%@ page import="br.usp.pcs.mvc.Venda.data.VendaPacote" %><%--
   Created by IntelliJ IDEA.
   User: andreebr
   Date: 08/12/16
@@ -18,6 +19,7 @@
 
 </head>
 <body>
+<% List<VendaPacote> vendaPacotes = (List<VendaPacote>) request.getAttribute("vendasPacote"); %>
 <div class="container">
     <h2 align="center">Relatório de vendas</h2>
     <br>
@@ -39,8 +41,14 @@
             </tr>
 
             <tr class="success">
-                <th colspan="2">Nome da Pacota</th>
+
+                <% for (int i = 0; i < vendaPacotes.size(); i++) {%>
+                <th colspan="2"><%= vendaPacotes.get(i).getPacote().getPackageName()%></th>
+                <%= ; %>
                 <th>Qtd Vendidos</th>
+                <%
+                    }
+                %>
             </tr>
 
             <tr>
