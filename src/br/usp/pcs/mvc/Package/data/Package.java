@@ -11,6 +11,7 @@ public class Package implements IPackage {
     private int id;
     private String name;
     private String description;
+    private int numeroVendas;
 
     @Override
     public int getPackageId() {
@@ -45,6 +46,11 @@ public class Package implements IPackage {
     @Override
     public Double getTotalPrice() {
         return 0.0;
+    }
+
+    @Override
+    public int getNumeroVendas() {
+        return numeroVendas;
     }
 
 }

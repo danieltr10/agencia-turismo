@@ -26,4 +26,8 @@ public abstract class Content implements IPackage{
     public String getPackageDescription() {
         return content.getPackageDescription();
     }
+
+    public int getNumeroVendas() {
+        return content.getNumeroVendas();
+    }
 }

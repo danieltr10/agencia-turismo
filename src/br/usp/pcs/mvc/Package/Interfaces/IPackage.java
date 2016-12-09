@@ -15,5 +15,6 @@ public interface IPackage {
     ListIterator<Transport> getTransports();
     ListIterator<Attraction> getAttractions();
     Double getTotalPrice();
+    int getNumeroVendas();
 }
 

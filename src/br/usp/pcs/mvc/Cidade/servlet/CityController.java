@@ -185,10 +185,15 @@ public class CityController extends HttpServlet {
 
     private void RelatorioGerencial(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         VendaPacoteDAO vendaPacoteDAO = VendaPacoteDAO.getInstance();
+        PackageDAO packageDAO = PackageDAO.getInstance();
 
         List<VendaPacote> vendasPacote = vendaPacoteDAO.getAllVendasPacote();
 
+        List<IPackage> pacotes = packageDAO.getPackageTopSales();
+
         request.setAttribute("vendasPacote", vendasPacote);
+
+        request.setAttribute("pacotes", pacotes);
 
 
 

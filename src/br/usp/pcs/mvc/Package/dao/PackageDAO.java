@@ -7,6 +7,7 @@ import br.usp.pcs.mvc.Package.Interfaces.IPackage;
 import br.usp.pcs.mvc.Package.data.Package;
 import br.usp.pcs.mvc.utils.Factory;
 
+import javax.swing.plaf.nimbus.State;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -74,41 +75,8 @@ public class PackageDAO {
             ResultSet packageResult = statement.executeQuery("SELECT * FROM Package");
 
             ArrayList<IPackage> packages = new ArrayList<>();
-            IPackage content;
 
-            while (packageResult.next()) {
-                content = packageFactory.mapNewResult(packageResult);
-
-                ResultSet hotelsResult = statement.executeQuery("SELECT Hotel.* " +
-                        "FROM PackageHotel, Hotel " +
-                        "WHERE HOTELID = ID AND " +
-                        "PACKAGEID =" + content.getPackageId());
-
-
-                while (hotelsResult.next()) {
-                    content = hotelFactory.mapResult(hotelsResult, new Hotel(content));
-                }
-
-                ResultSet transportResult = statement.executeQuery("SELECT Transport.* " +
-                        "FROM PackageTransport, Transport " +
-                        "WHERE TRANSPORTID = ID AND " +
-                        "PACKAGEID =" + content.getPackageId());
-
-                while (transportResult.next()) {
-                    content = transportFactory.mapResult(transportResult, new Transport(content));
-                }
-
-                ResultSet attractionsResult = statement.executeQuery("SELECT Attraction.* " +
-                        "FROM PackageAttraction, Attraction " +
-                        "WHERE ATTRACTIONID = ID AND " +
-                        "PACKAGEID =" + content.getPackageId());
-
-                while (attractionsResult.next()) {
-                    content = attractionFactory.mapResult(attractionsResult, new Attraction(content));
-                }
-
-                packages.add(content);
-            }
+            mapPackage(statement, packageResult, packages);
 
             connection.close();
 
@@ -186,7 +154,7 @@ public class PackageDAO {
 
             resultSet.next();
 
-            if (resultSet.getInt("QTD_PACKAGES") > 15) {
+            if (resultSet.getInt("QTD_PACKAGES") > 17) {
                 return true;
             }
 
@@ -211,6 +179,69 @@ public class PackageDAO {
             e.printStackTrace();
         }
 
+    }
+
+    public List<IPackage> getPackageTopSales() {
+        try {
+            Connection connection = createConnection();
+            Statement statement = connection.createStatement();
+
+            ResultSet packageResult = statement.executeQuery("SELECT DISTINCT * FROM Package ORDER BY NUMEROVENDAS DESC LIMIT 10");
+
+            List<IPackage> packages = new ArrayList<>();
+
+            mapPackage(statement, packageResult, packages);
+
+            connection.close();
+
+            return packages;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+            return null;
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private void mapPackage(Statement statement, ResultSet packageResult, List<IPackage> packages) throws SQLException, IllegalAccessException, InstantiationException {
+        IPackage content;
+        while (packageResult.next()) {
+            content = packageFactory.mapNewResult(packageResult);
+
+            ResultSet hotelsResult = statement.executeQuery("SELECT Hotel.* " +
+                    "FROM PackageHotel, Hotel " +
+                    "WHERE HOTELID = ID AND " +
+                    "PACKAGEID =" + content.getPackageId());
+
+
+            while (hotelsResult.next()) {
+                content = hotelFactory.mapResult(hotelsResult, new Hotel(content));
+            }
+
+            ResultSet transportResult = statement.executeQuery("SELECT Transport.* " +
+                    "FROM PackageTransport, Transport " +
+                    "WHERE TRANSPORTID = ID AND " +
+                    "PACKAGEID =" + content.getPackageId());
+
+            while (transportResult.next()) {
+                content = transportFactory.mapResult(transportResult, new Transport(content));
+            }
+
+            ResultSet attractionsResult = statement.executeQuery("SELECT Attraction.* " +
+                    "FROM PackageAttraction, Attraction " +
+                    "WHERE ATTRACTIONID = ID AND " +
+                    "PACKAGEID =" + content.getPackageId());
+
+            while (attractionsResult.next()) {
+                content = attractionFactory.mapResult(attractionsResult, new Attraction(content));
+            }
+
+            packages.add(content);
+        }
     }
 
 }
