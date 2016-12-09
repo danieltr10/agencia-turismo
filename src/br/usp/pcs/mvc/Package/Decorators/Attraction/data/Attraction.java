@@ -10,7 +10,7 @@ import java.util.ListIterator;
 
 public class Attraction extends Content {
 
-    private String Id;
+    private int id;
     private String name;
     private Double price;
     private String description;
@@ -22,12 +22,12 @@ public class Attraction extends Content {
         super(content);
     }
 
-    public String getId() {
-        return Id;
+    public int getId() {
+        return id;
     }
 
-    public void setId(String id) {
-        Id = id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
