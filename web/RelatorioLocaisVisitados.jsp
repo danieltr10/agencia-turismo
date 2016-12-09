@@ -1,4 +1,6 @@
-<%--
+<%@ page import="java.util.List" %>
+<%@ page import="br.usp.pcs.mvc.Package.Interfaces.IPackage" %>
+<%@ page import="br.usp.pcs.mvc.Cidade.data.City" %><%--
   Created by IntelliJ IDEA.
   User: andreebr
   Date: 08/12/16
@@ -8,7 +10,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Locais mais visitados</title>
+    <title>Relatorio Locais e Pacotes</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,46 +20,79 @@
 
 </head>
 <body>
+<%  List<IPackage> packages = (List<IPackage>) request.getAttribute("pacotes");
+    List<City> cities = (List<City>) request.getAttribute("cidades");
+
+    List<Integer> packagesSales = (List<Integer>) request.getAttribute("nPacotes");
+    List<Integer> citiesSales = (List<Integer>) request.getAttribute("nCidades");
+
+%>
 
 <div class="container">
-    <h2 align="center">Locais mais visitados</h2>
+    <h2 align="center">Pacotes mais vendidos</h2>
     <br>
     <table class="table table-bordered">
         <thead>
         <tr>
-            <th>Cidade</th>
-
-            <th>Preço</th>
+            <th>Nome do Pacote</th>
+            <th>Quantidade de Vendas</th>
         </tr>
         </thead>
         <tbody>
 
-        <tr class="success">
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
+
         <tr class="info">
-            <td></td>
-            <td> - </td>
-            <td> - </td>
-        </tr>
-        <tr class="warning">
-            <td colspan=2>
-                Transporte:
-            </td>
-            <td></td>
+            <td>Pacote Verão</td>
+            <td>23</td>
         </tr>
 
-        <tr class="active">
-            <td colspan=2>
-                Valor Total do Pacote:
-            </td>
-            <td></td>
+        <tr class="info">
+            <td>Pacote Orlando</td>
+            <td>15</td>
         </tr>
+
         </tbody>
     </table>
-    <p>A cidade em azul refere-se à cidade de origem e as células em laranja referem-se aos transportes entre as cidades.</p>
+
+    <h2 align="center">Locais Mais Visitados</h2>
+    <br>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Nome do Pacote</th>
+            <th>Quantidade de Vendas</th>
+        </tr>
+        </thead>
+        <tbody>
+
+
+        <tr class="success">
+            <td>São Paulo</td>
+            <td>53</td>
+        </tr>
+
+        <tr class="success">
+            <td>Salvador</td>
+            <td>46</td>
+        </tr>
+
+        <tr class="success">
+            <td>Rio de Janeiro</td>
+            <td>41</td>
+        </tr>
+
+        <tr class="success">
+            <td>Itajuba</td>
+            <td>37</td>
+        </tr>
+
+        <tr class="success">
+            <td>Belo Horizonte</td>
+            <td>24</td>
+        </tr>
+
+        </tbody>
+    </table>
 </div>
 
 

@@ -178,6 +178,8 @@ public class CityController extends HttpServlet {
 
     private void RelatorioLocais(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+       // CityDAO cityDAO = CityDAO.getInstance();
+      //  List<City> cidades = cityDAO.getCidadesMaisVendidas();
 
         RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/RelatorioLocaisVisitados.jsp");
         requestDispatcher.forward(request, response);

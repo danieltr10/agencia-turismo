@@ -1,10 +1,6 @@
 package br.usp.pcs.mvc.Cidade.dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.*;
 
 import br.usp.pcs.mvc.Cidade.data.City;
@@ -194,6 +190,37 @@ public class CityDAO{
 		return cidades;
 	}
 
+	public List<City> getCidadesMaisVendidas() {
+
+		ArrayList<City> cidades = new ArrayList<>();
+
+		try {
+
+			Connection connection = createConnection();
+			Statement statement = connection.createStatement();
+
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM City ORDER BY name NUMEROVENDAS");
+
+			int i = 0;
+			while (resultSet.next() || i < 10) {
+
+				cidades.add(_cityFactory.mapNewResult(resultSet));
+				i++;
+			}
+
+			connection.close();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		}
+
+		return cidades;
+	}
 	
 	 
 

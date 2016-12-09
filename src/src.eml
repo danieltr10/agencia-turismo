@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component LANGUAGE_LEVEL="JDK_1_8" inheritJdk="true">
+	<exclude-output/>
+	<contentEntry url="file://$MODULE_DIR$/.."/>
+	<levels>
+		<level name="junit-4.12" value="project"/>
+		<level name="Java EE 6-Java EE 6" value="project"/>
+		<level name="mariadb-java-client-1.5.4" value="project"/>
+	</levels>
+</component>
